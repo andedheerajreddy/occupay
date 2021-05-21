@@ -130,8 +130,7 @@ router.get("/", (req, res) => {
             populate: { path: 'houseId' }
         }
         /////////////////////////to be replaced later with  req.user.userid///////////////
-
-    itemLib.getItemByIdWithPopulate('60a69a7f4a417f3f68819170', adminModel, populateJson, (err, result) => {
+    itemLib.getItemByQueryWithPopulate({ _id: '60a69a7f4a417f3f68819170', isDeleted: false }, adminModel, populateJson, (err, result) => {
         if (err) {
             res.status(400).json({
                 message: "Error",
