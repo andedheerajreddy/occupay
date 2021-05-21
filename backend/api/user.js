@@ -12,7 +12,7 @@ const userModel = require("../models/user");
 const admin = require("../models/admin");
 
 router.post("/signup", (req, res) => {
-    itemLib.getItemByQuery({ email: req.body.email }, adminModel, (err, user) => {
+    itemLib.getItemByQuery({ email: req.body.email }, userModel, (err, user) => {
         if (err) {
             res.status(500).json({
                 error: err.toString(),
@@ -41,7 +41,7 @@ router.post("/signup", (req, res) => {
                             dateOfBirth: req.body.dateOfBirth,
 
                         };
-                        itemLib.createitem(user, adminModel, (err, result) => {
+                        itemLib.createitem(user, userModel, (err, result) => {
                             if (err) {
                                 res.status(500).json({
                                     error: err,
@@ -66,6 +66,64 @@ router.post("/signup", (req, res) => {
         }
     })
 
+})
+
+
+
+router.post("/login", (req, res) => {
+    itemLib.getItemByQuery({ email: req.body.email }, userModel, (err, user) => {
+        if (err) {
+            res.status(500).json({
+                error: err,
+            });
+        } else {
+            if (user.length < 1) {
+                return res.status(401).json({
+                    message: "Auth failed: Email not found probably",
+                });
+            }
+            bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+                if (err) {
+                    return res.status(401).json({
+                        message: "Auth failed",
+                    });
+                }
+                if (result) {
+                    const token = jwt.sign({
+                            userType: user[0].userType,
+                            userId: user[0]._id,
+                            email: user[0].email,
+                            name: user[0].name,
+                            mobileNumber: user[0].mobileNumber,
+                            address: user[0].address,
+                            dateOfBirth: user[0].dateOfBirth
+                        },
+                        process.env.jwtSecret, {
+                            expiresIn: "1d",
+                        }
+                    );
+
+                    return res.status(200).json({
+                        message: "Auth successful",
+                        userDetails: {
+                            userType: user[0].userType,
+                            userId: user[0]._id,
+                            name: user[0].name,
+                            email: user[0].email,
+                            mobileNumber: user[0].mobileNumber,
+                            address: user[0].address,
+                            dateOfBirth: user[0].dateOfBirth
+                        },
+                        token: token,
+                    });
+                }
+                res.status(401).json({
+                    message: "Auth failed1",
+                });
+
+            })
+        }
+    })
 })
 
 
