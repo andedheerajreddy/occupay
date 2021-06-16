@@ -146,6 +146,26 @@ router.get("/", (req, res) => {
 router.patch("/accepthouse/:userId", (req, res) => {
     let userId = req.params.userId;
     let houseId = req.body.houseId;
+    itemLib.updateItemField({ _id: userId, "housesInterested.houseId": houseId }, { $set: { "housesInterested.$.status": "Accepted" } }, userModel, (err, data) => {
+        if (err) {
+            res.status(404).json({
+                message: err,
+            });
+        } else {
+            itemLib.updateItemField({ adminId: "", "usersInterested.userId": userId }, { $set: { "usersInterested.$.status": "Accepted" } }, houseModel, (err, data1) => {
+                if (err) {
+                    res.status(404).json({
+                        message: err,
+                    });
+                } else {
+                    res.status(200).json({
+                        message: "Updated",
+                        status: "Accepted"
+                    });
+                }
+            })
+        }
+    })
 })
 
 module.exports = router
