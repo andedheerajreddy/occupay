@@ -2,8 +2,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+var path = require('path');
 
 const app = express();
+app.set('views', path.join(__dirname, 'frontend', 'views'));
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/frontend'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,6 +30,16 @@ mongoose
     .catch((err) => console.log(err));
 
 mongoose.Promise = global.Promise;
+
+app.get("/", (req, res) => {
+    res.render('home', { title: "home" })
+})
+app.get("/login", (req, res) => {
+    res.render('login', { title: "home" })
+})
+app.get("/register", (req, res) => {
+    res.render('register', { title: "home" })
+})
 
 app.use("/api", require("./backend/api/allapiroutes"))
 

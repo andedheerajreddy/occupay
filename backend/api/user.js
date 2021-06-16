@@ -70,7 +70,6 @@ router.post("/signup", (req, res) => {
 })
 
 
-
 router.post("/login", (req, res) => {
     itemLib.getItemByQuery({ email: req.body.email }, userModel, (err, user) => {
         if (err) {

@@ -143,4 +143,9 @@ router.get("/", (req, res) => {
     })
 })
 
+router.patch("/accepthouse/:userId", (req, res) => {
+    let userId = req.params.userId;
+    let houseId = req.body.houseId;
+})
+
 module.exports = router

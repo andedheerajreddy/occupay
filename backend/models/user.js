@@ -23,9 +23,10 @@ const userSchema = mongoose.Schema({
     },
     address: {
         Street: { type: String },
-        locality: { type: String },
         City: { type: String },
-        pincode: { type: Number }
+        pincode: { type: Number },
+        state: { type: String },
+        country: { type: String }
     },
     dateOfBirth: { type: Date },
     housesInterested: [{
