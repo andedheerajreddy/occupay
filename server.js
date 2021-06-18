@@ -43,12 +43,10 @@ app.get("/register", (req, res) => {
 app.get("/dashboard", (req, res) => {
     res.render('dashboard', { title: "home" })
 })
-
-
+app.get("/home/:homeid", (req, res) => {
+    res.render('homedetail', { title: "home" })
+})
 app.use("/api", require("./backend/api/allapiroutes"))
-
-
-
 
 let PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

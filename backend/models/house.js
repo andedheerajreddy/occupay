@@ -21,6 +21,13 @@ const houseSchema = mongoose.Schema({
         userId: { type: mongoose.Schema.Types.ObjectID, ref: "User" },
         comment: { type: String }
     }],
+    address: {
+        Street: { type: String },
+        City: { type: String },
+        pincode: { type: Number },
+        state: { type: String },
+        country: { type: String }
+    },
     occupiedStatus: { type: Boolean, default: false },
     availableFor: { type: String, required: true },
     houseType: { type: String, required: true },
