@@ -40,6 +40,10 @@ app.get("/login", (req, res) => {
 app.get("/register", (req, res) => {
     res.render('register', { title: "home" })
 })
+app.get("/dashboard", (req, res) => {
+    res.render('dashboard', { title: "home" })
+})
+
 
 app.use("/api", require("./backend/api/allapiroutes"))
 
