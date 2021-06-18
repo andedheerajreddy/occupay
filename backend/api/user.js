@@ -42,6 +42,9 @@ router.post("/signup", (req, res) => {
                             dateOfBirth: req.body.dateOfBirth,
 
                         };
+
+
+
                         itemLib.createitem(user, userModel, (err, result) => {
                             if (err) {
                                 res.status(500).json({
