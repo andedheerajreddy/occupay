@@ -26,56 +26,63 @@
                     <h2 class="form-title" style="text-align: center;padding-top: 10% !important">Sign up</h2>
                     <div class="form-group">
                         <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                        <input type="text" name="name" id="name" placeholder="Your Name" />
+                        <input class="register" type="text" name="name" id="name" placeholder="Your Name" />
                     </div>
                     <div class="form-group">
                         <label for="email"><i class="zmdi zmdi-email"></i></label>
-                        <input type="email" name="email" id="email" placeholder="Your Email" />
+                        <input class="register" type="email" name="email" id="email" placeholder="Your Email" />
                     </div>
                     <div class="form-group">
                         <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                        <input type="password" name="pass" id="pass" placeholder="Password" />
+                        <input class="register" type="password" name="pass" id="pass" placeholder="Password" />
                     </div>
 
 
                     <div class="form-group">
                         <label for="pass"><i class="fas fa-calendar-day"></i></label>
-                        <input placeholder="Enter DOB" class="textbox-n" type="text" onfocus="(this.type='date')" id="date">
+                        <input class="register" placeholder="Enter DOB" class="textbox-n" type="text" onfocus="(this.type='date')" id="date">
                     </div>
 
                     <div class="form-group">
                         <label for="name"><i class="fas fa-road"></i></label>
-                        <input type="text" name="name" id="name" placeholder="Street" />
+                        <input class="register" type="text" name="name" id="street" placeholder="Street" />
 
                     </div>
 
                     <div class="form-group">
                         <label for="name"><i class="fas fa-building"></i></label>
-                        <input type="text" name="name" id="name" placeholder="city" />
+                        <select class="register" name="gfg" id="" aria-placeholder="select city">
+                            <option value="" hidden>select city</option>
+                                            <option value="viz">viz</option>
+                            <option value="hyd">hyd</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="name"><i class="fa fa-map-pin" aria-hidden="true"></i>
                         </label>
-                        <input type="number" name="name" id="name" placeholder="Pincode" />
+                        <input class="register" type="number" name="name" id="name" placeholder="Pincode" />
                     </div>
                     <div class="form-group">
                         <label for="name"><i class="fas fa-city"></i></label>
-                        <select name="gfg" id="" aria-placeholder="select state">
+                        <select class="register" name="gfg" id="" aria-placeholder="select state">
                             <option value="" hidden>select state</option>
                                             <option value="dsfds">dfdsaf</option>
                             <option value="cdfdf">fsgf</option>
                         </select> </div>
                     <div class="form-group">
                         <label for="name"><i class="fas fa-globe-asia"></i></label>
-                        <input type="text" name="name" id="name" placeholder="Country" />
-                    </div>
+                        <select class="register" name="gfg" id="" aria-placeholder="select country">
+                            <option value="" hidden>select country</option>
+                                            <option value="b">b</option>
+                            <option value="b">b</option>
+                        </select></div>
                     <div class="form-group">
                         <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
 
                         <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                     </div>
                     <div class="form-group form-button" style="padding-bottom: 10%;">
-                        <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                        <button  id="signup" onclick="signup()">Rejister</button>
                     </div>
 
                 </div>
@@ -92,8 +99,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="js/main.js"></script> -->
+    <script src="js/signup.js"></script>s
 </body>
 <!-- This templates was made by Colorlib (https://colorlib.com) -->
 
