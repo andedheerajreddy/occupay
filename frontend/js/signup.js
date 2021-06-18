@@ -20,40 +20,35 @@ function signup() {
 
     var c = 9;
     if (email == "") {
-    //     document.getElementById("alertmsg").innerHTML = ` <div class="alert alert-danger alert-dismissible">
-    //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    //     <strong>Sorry!</strong>Enter the Email
-    //   </div>`;
+        //     document.getElementById("alertmsg").innerHTML = ` <div class="alert alert-danger alert-dismissible">
+        //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        //     <strong>Sorry!</strong>Enter the Email
+        //   </div>`;
         c--;
     }
-    if(name==""){c--;}
-    if(dateOfBirth==""){c--;}
-    if(Street==""){c--;}
-    if(City==""){c--;}
-    if(pincode==""){c--;}
-    if(state==""){c--;}
-    if(country==""){c--;}
+    if (name == "") { c--; }
+    if (dateOfBirth == "") { c--; }
+    if (Street == "") { c--; }
+    if (City == "") { c--; }
+    if (pincode == "") { c--; }
+    if (state == "") { c--; }
+    if (country == "") { c--; }
     //if(mobileNumber==""){c--;}
-
-
-
-
-
-   else if (password == "") {
-    //     document.getElementById("alertmsg").innerHTML = ` <div class="alert alert-danger alert-dismissible">
-    //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    //     <strong>Sorry!</strong>Enter the password
-    //   </div>`;
+    else if (password == "") {
+        //     document.getElementById("alertmsg").innerHTML = ` <div class="alert alert-danger alert-dismissible">
+        //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        //     <strong>Sorry!</strong>Enter the password
+        //   </div>`;
         c--;
-    } 
+    }
     //else document.getElementById("alertmsg").innerHTML = ``;
 
     if (c == 10) {
         if (!IsEmail(emailid)) {
-        //     document.getElementById("alertmsg").innerHTML = ` <div class="alert alert-danger alert-dismissible">
-        //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        //     <strong>Sorry!</strong>invalid Email
-        //   </div>`;
+            //     document.getElementById("alertmsg").innerHTML = ` <div class="alert alert-danger alert-dismissible">
+            //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            //     <strong>Sorry!</strong>invalid Email
+            //   </div>`;
             c--;
         }
     }
@@ -69,8 +64,8 @@ function signup() {
             data: {
                 email: email,
                 password: password,
-                name:name,
-                dateOfBirth:dateOfBirth,
+                name: name,
+                dateOfBirth: dateOfBirth,
                 address: {
                     Street: Street,
                     City: City,
@@ -78,7 +73,7 @@ function signup() {
                     state: state,
                     country: country,
                 },
-                mobileNumber:"9849123123"
+                mobileNumber: "9849123123"
 
             },
             success: function(resultData) {
@@ -88,7 +83,7 @@ function signup() {
                 //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 //     <strong>Sorry!</strong>Enter the Email
                 //   </div>`;
-                if (resultData.message == "user created") {
+                    if (resultData.message == "user created") {
                     //window.location.href = '/verify';
                 }
             }, //sucess
@@ -96,14 +91,14 @@ function signup() {
                     if (resultData.responseJSON.message == "Unauthorized access") {
                         location.href = "/"
                     } else {
-                    //     var x = document.getElementById("alert");
+                        //     var x = document.getElementById("alert");
 
-                    //     x.innerHTML = `<div class="alert alert-danger alert-dismissible">
-                    //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    //     <strong>Sorry!</strong>Enter the Email
-                    //    ${resultData.responseJSON.message}</div>`
-                    //     x.className = "show";
-                    //     setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
+                        //     x.innerHTML = `<div class="alert alert-danger alert-dismissible">
+                        //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        //     <strong>Sorry!</strong>Enter the Email
+                        //    ${resultData.responseJSON.message}</div>`
+                        //     x.className = "show";
+                        //     setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
                     }
                 } //error
         });
