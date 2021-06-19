@@ -37,7 +37,17 @@ function verifymail() {
                 verificationKey: passkey,
             },
             success: function(resultData) {
-                if (resultData.message = "already verified") {
+                // alert(JSON.stringify(resultData))
+                if (resultData.message == "User verified") {
+                    var x = document.getElementById("snackbar");
+                    x.style.backgroundColor = 'green'
+                    x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> VERIFIED`
+                    x.className = "show";
+                    setTimeout(function() {
+                        x.className = x.className.replace("show", "");
+                        window.location.href = "/login";
+                    }, 2000);
+                } else if (resultData.message == "already verified") {
                     var x = document.getElementById("snackbar");
                     x.style.backgroundColor = 'green'
                     x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ALREADY VERIFIED`
@@ -47,14 +57,7 @@ function verifymail() {
                         window.location.href = "/login";
                     }, 2000);
                 } else {
-                    var x = document.getElementById("snackbar");
-                    x.style.backgroundColor = 'green'
-                    x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> VERIFIED`
-                    x.className = "show";
-                    setTimeout(function() {
-                        x.className = x.className.replace("show", "");
-                        window.location.href = "/login";
-                    }, 2000);
+
                 }
             }, //sucess
             error: function(resultData) {

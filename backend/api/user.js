@@ -70,7 +70,7 @@ router.post("/resendVerificationEmail", async(req, res, next) => {
 });
 
 router.patch("/verifyEmail", async(req, res, next) => {
-    //console.log(req.body)
+    console.log(req.body)
     const { verificationKey } = req.body;
     await userModel.findOne({ email: req.body.email })
         .then(async(user) => {
@@ -78,9 +78,16 @@ router.patch("/verifyEmail", async(req, res, next) => {
                 return res.status(200).json({ message: "already verified" })
 
             }
+
             if (Date.now() > user.verificationKeyExpires) {
                 res.status(401).json({
                     message: "Pass key expired",
+                });
+            }
+            if (verificationKey != user.verificationKey) {
+                return res.status(409).json({
+                    message: "Invalid verification key",
+                    error: err.toString(),
                 });
             }
             user.verificationKeyExpires = null;
