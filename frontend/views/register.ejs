@@ -33,6 +33,10 @@
                         <input class="register" type="email" name="email" id="email" placeholder="Your Email" />
                     </div>
                     <div class="form-group">
+                        <label for="email"><i class="fas fa-phone"></i></label>
+                        <input class="number" type="number" name="number" placeholder="Your mobile number" />
+                    </div>
+                    <div class="form-group">
                         <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                         <input class="register" type="password" name="pass" id="pass" placeholder="Password" />
                     </div>
@@ -81,10 +85,10 @@
 
                         <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                     </div>
-                    <div class="form-group form-button" style="padding-bottom: 10%;">
-                        <button id="signup" onclick="signup()">Rejister</button>
-                    </div>
 
+                    <div class="form-group form-button" style="padding-bottom: 10%;">
+                        <input type="button" name="signup" id="signup" class="form-submit" value="Register" onclick="signup()" />
+                    </div>
                 </div>
 
 
@@ -94,6 +98,7 @@
         <!-- Sing in  Form -->
 
     </div>
+    <div id="snackbar"></div>
 
     <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
