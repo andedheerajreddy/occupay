@@ -40,6 +40,12 @@ app.get("/login", (req, res) => {
 app.get("/register", (req, res) => {
     res.render('register', { title: "home" })
 })
+app.get("/verify", (req, res) => {
+    res.render('verify', { title: "home" })
+})
+app.get("/resend", (req, res) => {
+    res.render('resend', { title: "home" })
+})
 app.get("/dashboard", (req, res) => {
     res.render('dashboard', { title: "home" })
 })

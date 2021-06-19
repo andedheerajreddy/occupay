@@ -96,7 +96,15 @@ function signup() {
             },
             success: function(resultData) {
                 if (resultData.message == "user created") {
-                    window.location.href = '/login'
+                    var x = document.getElementById("snackbar");
+                    x.style.backgroundColor = 'green'
+                    x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Verify Your Mail`
+                    x.className = "show";
+                    setTimeout(function() {
+                        x.className = x.className.replace("show", "");
+                        window.location.href = '/verify';
+
+                    }, 2000);
                 }
             }, //sucess
             error: function(resultData) {
@@ -107,7 +115,7 @@ function signup() {
                         x.className = "show";
                         setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
                     } else {
-                        window.location.href = '/register'
+                        snackbar("error");
                     }
                 } //error
         });

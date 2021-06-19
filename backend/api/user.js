@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
+const emailTemplates = require("../emails/email");
 
 const itemLib = require("../lib/itemlib");
 const houseModel = require("../models/house");
@@ -11,6 +12,103 @@ const adminModel = require("../models/admin");
 const userModel = require("../models/user");
 const admin = require("../models/admin");
 const { Router } = require("express");
+
+const shortid = require("shortid");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SendgridAPIKey);
+
+router.post("/resendVerificationEmail", async(req, res, next) => {
+    const { email } = req.body;
+
+    var flag = 0;
+    console.log(flag)
+    const user = await userModel.findOne({ email });
+    if (user) {
+
+        if (user.verificationKey == null) {
+            return res.status(200).json({ message: "already verified" })
+        }
+        user.verificationKey = shortid.generate();
+        user.verificationKeyExpires = new Date().getTime() + 20 * 60 * 1000;
+        await user
+            .save()
+            .then((result) => {
+                const msg = {
+                    to: email,
+                    from: process.env.sendgridEmail,
+                    subject: "OCCUPAY: Email Verification",
+                    text: " ",
+                    html: emailTemplates.VERIFY_EMAIL(result),
+                };
+
+                sgMail
+                    .send(msg)
+                    .then((result) => {
+                        res.status(200).json({
+                            message: "Password reset key sent to email",
+                        });
+                    })
+                    .catch((err) => {
+                        res.status(500).json({
+                            // message: "something went wrong1",
+                            error: err.toString(),
+                        });
+                    });
+            })
+            .catch((err) => {
+                res.status(400).json({
+                    message: "Some error occurred",
+                    error: err.toString(),
+                });
+            });
+    } else {
+        return res.status(400).json({
+            message: "email not found",
+
+        })
+    }
+});
+
+router.patch("/verifyEmail", async(req, res, next) => {
+    //console.log(req.body)
+    const { verificationKey } = req.body;
+    await userModel.findOne({ email: req.body.email })
+        .then(async(user) => {
+            if (user.verificationKey == null) {
+                return res.status(200).json({ message: "already verified" })
+
+            }
+            if (Date.now() > user.verificationKeyExpires) {
+                res.status(401).json({
+                    message: "Pass key expired",
+                });
+            }
+            user.verificationKeyExpires = null;
+            user.verificationKey = null;
+            user.isEmailVerified = true;
+            await user
+                .save()
+                .then((result1) => {
+                    res.status(200).json({
+                        message: "User verified",
+                    });
+                })
+                .catch((err) => {
+                    res.status(400).json({
+                        message: "Some error",
+                        error: err.toString(),
+                    });
+                });
+        })
+        .catch((err) => {
+            res.status(409).json({
+                message: "Invalid verification key",
+                error: err.toString(),
+            });
+        });
+});
+
+
 
 router.post("/signup", (req, res) => {
     itemLib.getItemByQuery({ email: req.body.email }, userModel, (err, user) => {
@@ -45,23 +143,50 @@ router.post("/signup", (req, res) => {
 
 
 
-                        itemLib.createitem(user, userModel, (err, result) => {
+                        itemLib.createitem(user, userModel, async(err, result) => {
                             if (err) {
                                 res.status(500).json({
                                     error: err,
                                 });
                             } else {
-                                res.status(201).json({
-                                    message: "user created",
-                                    userDetails: {
-                                        userId: result._id,
-                                        email: result.email,
-                                        name: result.name,
-                                        mobileNumber: result.mobileNumber,
-                                        address: result.address,
-                                        dateOfBirth: result.dateOfBirth
-                                    },
-                                })
+                                result.verificationKey = shortid.generate();
+                                result.verificationKeyExpires =
+                                    new Date().getTime() + 20 * 60 * 1000;
+                                await result
+                                    .save()
+                                    .then((result1) => {
+                                        const msg = {
+                                            to: result.email,
+                                            from: process.env.sendgridEmail,
+                                            subject: "OCCUPAY: Email Verification",
+                                            text: " ",
+                                            html: emailTemplates.VERIFY_EMAIL(result1),
+                                        };
+
+                                        sgMail
+                                            .send(msg)
+                                            .then((result) => {
+                                                console.log("Email sent");
+                                            })
+                                            .catch((err) => {
+                                                console.log(err.toString());
+                                                res.status(500).json({
+                                                    // message: "something went wrong1",
+                                                    error: err,
+                                                });
+                                            });
+                                        res.status(201).json({
+                                            message: "user created",
+                                            userDetails: {
+                                                userId: result._id,
+                                                email: result.email,
+                                                name: result.name,
+                                                mobileNumber: result.mobileNumber,
+                                                address: result.address,
+                                                dateOfBirth: result.dateOfBirth
+                                            },
+                                        })
+                                    });
                             }
                         })
                     }
