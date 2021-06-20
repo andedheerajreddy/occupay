@@ -14,7 +14,7 @@ $(() => {
                         <div class="row no-gutters">
                             <div class="col-5">
             
-                                <img class="card-img-top" style="height: 220px;"src=${result[i].pics[0]}
+                                <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i].pics[0].filename}
                                 
                                 alt="Card image cap">
                                 </div>
@@ -59,8 +59,7 @@ $(() => {
 <div class="row no-gutters">
     <div class="col-5">
 
-        <img class="card-img-top" style="height: 220px;"src=${result[i].pics[0]}
-        
+        <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i].pics[0].filename}
         alt="Card image cap">
         </div>
         <div class="col-7">
