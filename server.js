@@ -52,6 +52,9 @@ app.get("/dashboard", (req, res) => {
 app.get("/home/:homeid", (req, res) => {
     res.render('homedetail', { title: "home" })
 })
+app.get("/addhome", (req, res) => {
+    res.render('addhouses', { title: "home" })
+})
 app.use("/api", require("./backend/api/allapiroutes"))
 
 let PORT = process.env.PORT || 3000;

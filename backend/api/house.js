@@ -2,13 +2,44 @@ const express = require("express");
 const router = express.Router();
 const itemLib = require("../lib/itemlib");
 const mongoose = require("mongoose");
-
+var fs = require('fs');
+var path = require('path');
 const houseModel = require("../models/house");
 const adminModel = require("../models/admin");
 const userModel = require("../models/user");
-
-router.post("/add", (req, res) => {
+var multer = require('multer');
+ 
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now()+path.extname(file.originalname))
+    }
+});
+ 
+var upload = multer({ storage: storage });
+router.post("/addpics",upload.array("file"),(req,res)=>
+{
+    console.log(req.files);
+    let a=[]
+    for(let i=0; i<req.files.length; i++)
+    {
+        var img=fs.readFileSync(req.files[i].path);
+        var encode_image=img.toString('base64');
+        var finalimage={
+        filename: req.files[i].filename,
+        contentType: req.files[i].mimetype,
+        }
+        a.push(finalimage);
+    }
+    // console.log(a);
+    res.json({'data':a})
+    //save here
+})
+router.post("/add",upload.single("file"),(req, res) => {
     let data = req.body;
+    console.log(data);
     data._id = new mongoose.Types.ObjectId()
     itemLib.createitem(data, houseModel, (err, itemDetails) => {
         if (err) {
@@ -17,9 +48,11 @@ router.post("/add", (req, res) => {
             })
         } else {
             const houseId = itemDetails._id;
-            itemLib.updateItemField({ _id: req.user.userId }, { $push: { houses: { houseId } } }, adminModel, (err, result) => {
+            console.log(itemDetails);
+           userId="60a69a7f4a417f3f68819170"
+            itemLib.updateItemField({ _id:userId }, { $push: { houses: { houseId } } }, adminModel, (err, result) => {
                 if (err) {
-                    res.status(400).json({ error: "err1" });
+                    res.status(400).json({ message:"error",err });
                 } else {
 
                     res.status(201).json({
