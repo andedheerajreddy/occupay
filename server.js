@@ -52,8 +52,8 @@ app.get("/dashboard", (req, res) => {
 app.get("/home/:homeid", (req, res) => {
     res.render('homedetail', { title: "home" })
 })
-app.get("/addhome", (req, res) => {
-    res.render('addhouses', { title: "home" })
+app.get("/:url", (req, res) => {
+    res.render(req.params.url, { title: "home" })
 })
 app.use("/api", require("./backend/api/allapiroutes"))
 

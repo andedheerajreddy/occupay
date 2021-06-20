@@ -41,6 +41,7 @@ router.post("/add",upload.single("file"),(req, res) => {
     let data = req.body;
     console.log(data);
     data._id = new mongoose.Types.ObjectId()
+    data.adminId="60a69ab64a417f3f68819172"
     itemLib.createitem(data, houseModel, (err, itemDetails) => {
         if (err) {
             res.status(404).json({
