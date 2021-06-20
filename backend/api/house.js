@@ -19,7 +19,7 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
-router.post("/addpics", upload.array("file"), (req, res) => {
+router.post("/addpics", upload.array("file",6), (req, res) => {
     console.log(req.files);
     let a = []
     for (let i = 0; i < req.files.length; i++) {
@@ -48,7 +48,7 @@ router.post("/add", upload.single("file"), (req, res) => {
         } else {
             const houseId = itemDetails._id;
             console.log(itemDetails);
-            userId = "60a69a7f4a417f3f68819170"
+            userId = "60a69ab64a417f3f68819172"
             itemLib.updateItemField({ _id: userId }, { $push: { houses: { houseId } } }, adminModel, (err, result) => {
                 if (err) {
                     res.status(400).json({ message: "error", err });
