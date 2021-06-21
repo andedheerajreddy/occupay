@@ -1,16 +1,16 @@
-*
-{
+* {
     box-sizing: border-box;
 }
-.details,.detail
-{
+
+.details,
+.detail {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
-.items
-{
-    width: 48%;
+
+.items {
+    min-width: 48%;
     border-bottom: 1px dotted #d1d1d1;
     display: flex;
     padding: 20px 20px 0;

@@ -44,13 +44,13 @@ function filldata() {
                 code1 += `<div class="items">
                 
                 <div class="name" style="width:51%;margin-left:10pxmin-width: fit-content;">${i[0]}</div>
-                <div class="value" style="text-transform: capitalize;width: 50%;font-weight: 600;">${i[1]}</div>
+                <div class="value" style="text-transform: capitalize;font-weight: 600;">${i[1]}</div>
             </div>`
             }
             for (let i of d1) {
                 code2 += `<div class="items">
-                <div class="name" style="width:51%;margin-left:10pxmin-width: fit-content;">${i[0]}</div>
-                <div class="value" style="text-transform: capitalize;width: 50%;font-weight: 600;">${i[1]}</div>
+                  <div class="name" style="width:51%;margin-left:10pxmin-width: fit-content;">${i[0]}</div>
+                <div class="value" style="text-transform: capitalize;font-weight: 600;">${i[1]}</div>
             </div>`
             }
             $(".details").html(code1);
