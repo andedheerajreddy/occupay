@@ -35,6 +35,22 @@ router.post("/addpics", upload.array("file",6), (req, res) => {
     res.json({ 'data': a })
         //save here
 })
+router.patch("/addtowishlist/:id", (req, res)=>
+{
+    const userId = "60cdc02cd333591b4c72eba6"
+    const houseID=req.params.id;
+    itemLib.updateItemField({ _id: userId}, { $push: {wishlist : { houseID } } },userModel , async(err, result1) => {
+        if (err) {
+            res.status(400).json({
+                message: "Some error",
+            });
+        } else {
+            await res.status(200).json({
+                message: "Updated",
+            });
+        }
+    })
+})
 router.post("/add", upload.single("file"), (req, res) => {
     let data = req.body;
     console.log(data);
@@ -48,7 +64,7 @@ router.post("/add", upload.single("file"), (req, res) => {
         } else {
             const houseId = itemDetails._id;
             console.log(itemDetails);
-            userId = "60a69ab64a417f3f68819172"
+            const userId = "60a69ab64a417f3f68819172"
             itemLib.updateItemField({ _id: userId }, { $push: { houses: { houseId } } }, adminModel, (err, result) => {
                 if (err) {
                     res.status(400).json({ message: "error", err });
@@ -101,7 +117,45 @@ router.post("/filter", (req, res) => {
         }
     })
 })
+router.patch("/:id",(req, res) => {
+    var houseId=req.params.id;
+    let data=req.body;
+    let pics=data.pics
+    console.log(pics);
+    delete data.pics
+    itemLib.updateItemField({ _id: houseId},{$set:data},houseModel,(err, itemDetails) => {
+        if (err) {
+            res.status(404).json({
+                error: err
+            })
+        } else {
+            itemLib.updateItemField({ _id: req.params.id }, { $push:{pics:pics} }, houseModel, (err, result) => {
+                if (err) {
+                    res.status(500).json({
+                        error: err,
+                    });
+                } else {
+                   console.log("updated Pics");
+                }
+            })
+            const houseId = itemDetails._id;
+            console.log(itemDetails);
+            userId = "60a69ab64a417f3f68819172"
+            itemLib.updateItemField({ _id: userId }, { $push: { houses: { houseId } } }, adminModel, (err, result) => {
+                if (err) {
+                    res.status(400).json({ message: "error", err });
+                } else {
 
+                    res.status(201).json({
+                        message: "created",
+                        itemDetails
+                    })
+
+                }
+            })
+        }
+    })
+})
 router.get("/:houseId", (req, res) => {
     itemLib.getItemByQueryWithPopulate({ _id: req.params.houseId, isDeleted: false }, houseModel, "adminId", (err, result) => {
         if (err || result.length <= 0) {

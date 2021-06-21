@@ -25,11 +25,11 @@ $(() => {
             for (let i = 0; i < result.length; i++) {
                 data += ` <div class="row mt-2">
                   <div class="col-6 m-0 p-0">
-                    <div class="card m-0 p-0" style="width: 30rem ;margin: 0%;">
+                    <div class="card m-0 p-0" style="width: 32rem ;margin: 0%;">
                         <div class="row no-gutters">
                             <div class="col-5">
             
-                                <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i].pics[0].filename}
+                                <img class="card-img-top" style="height: 230px;"src=/uploads/${result[i].pics[0].filename}
                                 
                                 alt="Card image cap">
                                 </div>
@@ -56,7 +56,7 @@ $(() => {
                                                 <hr class="m-0">
                 
                                                 <p>Parking available :<br>${result[i].isParkingAvailable}</p>
-                                                <a href="#" class="btn btn-outline-info pr-4" id="Intrested-${result[i]._id}">Intrested</a>
+                                                <button class="btn btn-outline-info" id="Intrested-${result[i]._id}" onclick="add('${result[i]._id}')" ">Add to Wishlist</button>
                 
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@ $(() => {
                     </div> <div class="col-xl-6 m-0 p-0 col-lg-12">`
                 i++;
                 if (i < result.length) {
-                    data += ` <div class="card m-0 p-0" style="width: 30rem ;margin: 0%;">
+                    data += ` <div class="card m-0 p-0" style="width: 32rem ;margin: 0%;">
 <div class="row no-gutters">
     <div class="col-5">
 
@@ -100,7 +100,7 @@ $(() => {
                         <hr class="m-0">
 
                         <p>Parking available :<br>${result[i].isParkingAvailable}</p>
-                        <a href="#" class="btn btn-outline-info pr-4" id="Intrested-${result[i]._id}">Intrested</a>
+                        <button  class="btn btn-outline-info " id="Intrested-${result[i]._id}" onclick="add('${result[i]._id}')">Add to Wishlist</button>
 
                     </div>
                 </div>
@@ -169,7 +169,7 @@ function filter() {
             for (let i = 0; i < result.length; i++) {
                 data += ` <div class="row mt-2">
                   <div class="col-6 m-0 p-0">
-                    <div class="card m-0 p-0" style="width: 30rem ;margin: 0%;">
+                    <div class="card m-0 p-0" style="width: 32rem ;margin: 0%;">
                         <div class="row no-gutters">
                             <div class="col-5">
             
@@ -200,7 +200,7 @@ function filter() {
                                                 <hr class="m-0">
                 
                                                 <p>Parking available :<br>${result[i].isParkingAvailable}</p>
-                                                <a href="#" class="btn btn-outline-info pr-4" id="Intrested-${result[i]._id}">Intrested</a>
+                                                <button class="btn btn-outline-info " id="Intrested-${result[i]._id}"onclick="add('${result[i]._id}')" >Add to Wishlist</button>
                 
                                             </div>
                                         </div>
@@ -244,7 +244,7 @@ function filter() {
                         <hr class="m-0">
 
                         <p>Parking available :<br>${result[i].isParkingAvailable}</p>
-                        <a href="#" class="btn btn-outline-info pr-4" id="Intrested-${result[i]._id}">Intrested</a>
+                        <button class="btn btn-outline-info pr-4" id="Intrested-${result[i]._id}" onclick="add('${result[i]._id}')">Add to Wishlist</button>
 
                     </div>
                 </div>
@@ -265,4 +265,19 @@ function filter() {
             console.log(err)
         }
     })
+}
+function add(id)
+{
+    $.ajax({
+        url: "/api/house/addtowishlist/"+id,
+        method: "PATCH",
+        success: function(result) {
+            console.log(result)
+        },
+        error: function(err) {
+            if (err) {
+                console.log(err);
+            }
+        }
+    });
 }
