@@ -48,7 +48,7 @@ router.post("/add", upload.single("file"), (req, res) => {
         } else {
             const houseId = itemDetails._id;
             console.log(itemDetails);
-            userId = "60a69a7f4a417f3f68819170"
+            userId = "60a69ab64a417f3f68819172"
             itemLib.updateItemField({ _id: userId }, { $push: { houses: { houseId } } }, adminModel, (err, result) => {
                 if (err) {
                     res.status(400).json({ message: "error", err });
@@ -80,6 +80,27 @@ router.get("/available", (req, res) => {
     })
 })
 
+
+router.post("/filter", (req, res) => {
+    console.log(req.body)
+    let a = req.body;
+    a.occupiedStatus = false;
+    a.isDeleted = false
+    console.log(a)
+
+    itemLib.getItemByQuery(a, houseModel, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                message: err,
+            });
+        } else {
+            res.status(200).json({
+                message: "Successfully retrieved",
+                result,
+            });
+        }
+    })
+})
 
 router.get("/:houseId", (req, res) => {
     itemLib.getItemByQueryWithPopulate({ _id: req.params.houseId, isDeleted: false }, houseModel, "adminId", (err, result) => {

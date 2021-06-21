@@ -4,7 +4,21 @@ function snackbar(mssg) {
     x.className = "show";
     setTimeout(function() { x.className = x.className.replace("show", ""); }, 2000);
 }
+let s = `                            <option value="" hidden>select state</option>
+`
+for (let i = 0; i < states.length; i++) {
+    s += `   <option value="${states[i]}">${states[i]}</option>`
+}
+$("#fills").html(s)
+$('#fills').on('change', function() {
+    s = ``;
 
+    for (let i = 0; i < cities[this.value].length; i++) {
+        s += `   <option value="${cities[this.value][i]["city"]}">${cities[this.value][i]["city"]}</option>`
+    }
+    $("#fillc").html(s)
+
+});
 
 function signup() {
     // console.log("Hello");
@@ -19,12 +33,11 @@ function signup() {
     var password = String(document.getElementsByClassName("register")[2].value);
     var dateOfBirth = String(document.getElementsByClassName("register")[3].value);
     var Street = String(document.getElementsByClassName("register")[4].value);
-    var City = String(document.getElementsByClassName("register")[5].value);
-    var pincode = String(document.getElementsByClassName("register")[6].value);
-    var state = String(document.getElementsByClassName("register")[7].value);
+    var state = String(document.getElementsByClassName("register")[5].value);
+    var City = String(document.getElementsByClassName("register")[6].value);
+    var pincode = String(document.getElementsByClassName("register")[7].value);
     var country = String(document.getElementsByClassName("register")[8].value);
     var mobileNumber = String(document.getElementsByClassName("number")[0].value);
-
     var c = 10;
     if (name == "") {
         c--;

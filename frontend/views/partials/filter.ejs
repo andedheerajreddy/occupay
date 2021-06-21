@@ -18,46 +18,36 @@
                 </li>
                 <li><input type="text " name=" " id=" " style="margin-left: 20px; "></li> -->
                 <!-- <input type="text " name=" " id=" "> -->
-                <select name="select-two" class="mb-2 ui-select ui-select-base ui-select-basic" style="margin-left: 29px; height: 40px;">
-                    <option value="">basic select</option> 
-                    <option value="">option one</option> 
-                    <option value="">option two</option> 
-                    <option value="">option three</option> 
-                    <option value="">option four</option> 
+                <select name="select-two" class="filters mb-2 ui-select ui-select-base ui-select-basic" id="fills" style="margin-left: 29px; height: 40px;">
+                    <option value="" hidden>Select State</option> 
+                
                   </select>
-                <select name="select-two" class="mb-2 ui-select ui-select-base ui-select-basic" style="margin-left: 29px; height: 40px;">
-                    <option value="">basic select</option> 
-                    <option value="">option one</option> 
-                    <option value="">option two</option> 
-                    <option value="">option three</option> 
-                    <option value="">option four</option> 
+                <select name="select-two" class="filters mb-2 ui-select ui-select-base ui-select-basic" id="fillc" style="margin-left: 29px; height: 40px;">
+                    <option value="" hidden>Select City</option> 
                   </select>
-                <select name="select-two" class="mb-2 ui-select ui-select-base ui-select-basic" style="margin-left: 29px; height: 40px;">
-                    <option value="">basic select</option> 
-                    <option value="">option one</option> 
-                    <option value="">option two</option> 
-                    <option value="">option three</option> 
-                    <option value="">option four</option> 
-                    <option value="">basic select</option> 
-                    <option value="">option one</option> 
-                    <option value="">option two</option> 
-                    <option value="">option three</option> 
-                    <option value="">option four</option> 
-                    <option value="">basic select</option> 
-                    <option value="">option one</option> 
-                    <option value="">option two</option> 
-                    <option value="">option three</option> 
-                    <option value="">option four</option> 
+                <select name="select-two" class="filters mb-2 ui-select ui-select-base ui-select-basic" style="margin-left: 29px; height: 40px;">
+                    <option value="" >Price range</option> 
+                    <option value="0"> less than 5000</option> 
+                    <option value="1">between 5000 to 10000</option> 
+                    <option value="2">between 10000 to 20000</option> 
+                    <option value="3">greater than 20000</option> 
+              
                   </select>
-                <select name="select-two" class="mb-4 ui-select ui-select-base ui-select-basic" style="margin-left: 29px; height: 40px;">
-                    <option value="">basic select</option> 
-                    <option value="">option one</option> 
-                    <option value="">option two</option> 
-                    <option value="">option three</option> 
-                    <option value="">option four</option> 
+                <select name="select-two" class="filters mb-2 ui-select ui-select-base ui-select-basic" style="margin-left: 29px; height: 40px;">
+                    <option value="" > House Type</option>
+                    <option value="1 BHK">1 BHK</option>
+                    <option value="2 BHK">2 BHK</option>
+                    <option value="3 BHK">3 BHK</option>
+                    <option value="4 BHK">4 BHK</option>
+                  </select>
+                <select name="select-two" class="filters mb-4 ui-select ui-select-base ui-select-basic" style="margin-left: 29px; height: 40px;">
+                  <option value="" > Furnishing</option>
+                                <option value="None">None</option>
+                                <option value="Semi">Semi</option>
+                                <option value="Complete">Complete</option>
                   </select>
                 <br>
-                <button type="button" class="btn btn-outline-info" style="margin-left: 28%" |>Search</button>
+                <button type="button" class="btn btn-outline-info" onclick="filter()" style="margin-left: 18%">APPLY FILTER</button>
 
             </ul>
         </div>
