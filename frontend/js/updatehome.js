@@ -1,4 +1,3 @@
-
 function snackbar(mssg) {
     var x = document.getElementById("snackbar");
     x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ${mssg}`
@@ -21,7 +20,8 @@ $('#fills').on('change', function() {
     $("#fillc").html(s)
 
 });
-var homeid=location.href.split('/').splice(-1)[0];
+var homeid = location.href.split('/').splice(-1)[0];
+
 function update() {
     var houseName = String(document.getElementsByClassName("register")[0].value);
     var houseDescription = String(document.getElementsByClassName("register")[1].value);
@@ -102,78 +102,78 @@ function update() {
     if (c == 18) {
         var file = document.getElementById("images").files;
         console.log(file);
-            var formData = new FormData();
-            for (let i = 0; i < file.length; i++)
-                formData.append("file", file[i]);
-            data = {
-                houseName: houseName,
-                houseDescription: houseDescription,
-                address: {
-                    Street: Street,
-                    City: City,
-                    pincode: pincode,
-                    state: state,
-                    country: country,
-                },
-                houseType: house_type,
-                cost: {
-                    rentPerMonth: rentPerMonth,
-                    maintenance: maintenance,
-                    advance: advance
-                },
-                propertyAge: propertyAge,
-                preferred_tenant: preferred_tenant,
-                property_type: property_type,
-                parking: parking,
-                balcony: balcony,
-                facing: facing,
-                furnishing: furnishing,
-            }
-            console.log(data);
-            $.ajax({
-                url: "/api/house/addpics",
-                method: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(result) {
-                    console.log("success");
-                    console.log(result);
-                    data.pics = result.data;
-                    console.log(data)
-                    $.ajax({
-                        method: "PATCH",
-                        url: "/api/house/"+ homeid,
-                        data: data,
-                        success: function(resultData) {
-                            if (resultData.message == "created") {
-                                var x = document.getElementById("snackbar");
-                                x.style.backgroundColor = 'green'
-                                x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Your House is Added Successfully`
-                                x.className = "show";
-                                setTimeout(function() {
-                                    x.className = x.className.replace("show", "");
-                                    window.location.href = '/dashboard';
-
-                                }, 2000);
-                            }
-                        },
-                        error: function(resultData) {
-                            if (resultData.message == "error") {
-                                var x = document.getElementById("snackbar");
-                                x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i>Error Occured ${resultData.err}`;
-                                x.className = "show";
-                                setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
-                            } else {
-                                snackbar("error");
-                            }
-                        }
-                    });
-
-                },
-                error: function(err) {
-                    alert("Error Occured: " + err);
-                }
-            });
+        var formData = new FormData();
+        for (let i = 0; i < file.length; i++)
+            formData.append("file", file[i]);
+        data = {
+            houseName: houseName,
+            houseDescription: houseDescription,
+            address: {
+                Street: Street,
+                City: City,
+                pincode: pincode,
+                state: state,
+                country: country,
+            },
+            houseType: house_type,
+            cost: {
+                rentPerMonth: rentPerMonth,
+                maintenance: maintenance,
+                advance: advance
+            },
+            propertyAge: propertyAge,
+            preferred_tenant: preferred_tenant,
+            property_type: property_type,
+            parking: parking,
+            balcony: balcony,
+            facing: facing,
+            furnishing: furnishing,
         }
+        console.log(data);
+        $.ajax({
+            url: "/api/house/addpics",
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(result) {
+                console.log("success");
+                console.log(result);
+                data.pics = result.data;
+                console.log(data)
+                $.ajax({
+                    method: "PATCH",
+                    url: "/api/house/" + homeid,
+                    data: data,
+                    success: function(resultData) {
+                        if (resultData.message == "updated") {
+                            var x = document.getElementById("snackbar");
+                            x.style.backgroundColor = 'green'
+                            x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Your House is Added Successfully`
+                            x.className = "show";
+                            setTimeout(function() {
+                                x.className = x.className.replace("show", "");
+                                window.location.href = '/dashboard';
+
+                            }, 2000);
+                        }
+                    },
+                    error: function(resultData) {
+                        if (resultData.message == "error") {
+                            var x = document.getElementById("snackbar");
+                            x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i>Error Occured ${resultData.err}`;
+                            x.className = "show";
+                            setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
+                        } else {
+                            snackbar("error");
+                        }
+                    }
+                });
+
+            },
+            error: function(err) {
+                alert("Error Occured: " + err);
+            }
+        });
     }
+}

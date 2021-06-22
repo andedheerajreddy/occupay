@@ -9,7 +9,7 @@ const houseSchema = mongoose.Schema({
     adminId: { type: mongoose.Schema.Types.ObjectID, ref: "Admin" },
     houseDescription: { type: String, required: true },
     pics: [{
-        filename:String,
+        filename: String,
         contentType: String
     }],
     usersInterested: [{
@@ -40,13 +40,13 @@ const houseSchema = mongoose.Schema({
         advance: { type: Number }
     },
     propertyAge: { type: String, required: true },
-    preferred_tenant:{ type: String, required: true},
-    property_type:{ type: String, required: true},
-    parking:{ type: String, required: true},
-    balcony: { type: String, required: true},
-    facing:{ type: String, required: true},
-    furnishing:{ type: String, required: true},
-    isParkingAvailable: { type: Boolean,default: false},
+    preferred_tenant: { type: String, required: true },
+    property_type: { type: String, required: true },
+    parking: { type: String, required: true },
+    balcony: { type: String, required: true },
+    facing: { type: String, required: true },
+    furnishing: { type: String, required: true },
+    isParkingAvailable: { type: Boolean, default: false },
     usersJoined: [{
         userId: { type: mongoose.Schema.Types.ObjectID, ref: "User" },
         joinDate: { type: Date }
