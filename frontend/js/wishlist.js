@@ -7,20 +7,6 @@ function snackbar(mssg,success) {
     setTimeout(function() { x.className = x.className.replace("show", ""); }, 2000);
 }
 $(() => {
-    let s = `<option value="" >Select state</option>`
-    for (let i = 0; i < states.length; i++) {
-        s += `   <option value="${states[i]}">${states[i]}</option>`
-    }
-    $("#fills").html(s)
-    $('#fills').on('change', function() {
-        s = `<option value="" >Select City</option>`;
-
-        for (let i = 0; i < cities[this.value].length; i++) {
-            s += `   <option value="${cities[this.value][i]["city"]}">${cities[this.value][i]["city"]}</option>`
-        }
-        $("#fillc").html(s)
-
-    });
     var data = ``;
     $.ajax({
         url: "/api/house/available",
@@ -52,7 +38,7 @@ $(() => {
                                                 <hr class="m-0">
                 
                                                 <p>Property Age :<br> ${result[i].propertyAge}</p>
-                                                <a href="/home/${result[i]._id}" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
+                                                <a href="#" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
                 
                                             </div>
                                             <div class="col-6  pr-0">

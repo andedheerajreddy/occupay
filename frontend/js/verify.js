@@ -25,7 +25,7 @@ function verifymail() {
         snackbar("Enter passkey");
         c--;
     } else if (!IsEmail(email)) {
-        snackbar("Enter valid email");
+        snackbar("Enter valid email Address");
         c--;
     }
     if (c == 2) {

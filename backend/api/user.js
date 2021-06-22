@@ -260,7 +260,40 @@ router.post("/login", (req, res) => {
         }
     })
 })
+router.get("/",(req, res)=>
+{
+    let userId = "60cdc02cd333591b4c72eba6"
+    itemLib.getItemByQuery({_id:userId},userModel,(err,result)=>
+    {
+        if(err)
+        {
+            res.status(404).json({
+                message: "error occured",
+            });
+        }
+        else
+        {
+            res.status(200).json({
+                result: result[0],
+            });   
+        }
+    })
+})
+router.patch("/updateprofile",(req, res)=>{
+    let userId = "60cdc02cd333591b4c72eba6";
+    itemLib.updateItemField({ _id: userId},{$set:req.body},userModel, (err, itemDetails) => {
+        if (err) {
+            res.status(404).json({
+                error: err
+            })
+        } else {
+            res.status(200).json({
+                message: "Updated",
+            });
 
+        }
+    }
+)})
 router.patch("/requesthouse/:houseId", (req, res) => {
     let houseid = req.params.houseId
         //need to be updated later
