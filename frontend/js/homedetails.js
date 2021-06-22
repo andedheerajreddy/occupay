@@ -1,7 +1,5 @@
 function filldata() {
     const homeid = location.href.split('/').splice(-1)[0];
-    console.log(homeid);
-    var retrieve = ['houseName', 'houseType', 'houseDescription', 'cost.rentPerMonth', 'cost.maintenance', 'cost.advance', 'address.Street', 'address.City', 'address.country', 'address.pincode', 'occupiedStatus', 'isParkingAvailable', 'propertyAge', 'preferred_tenant', 'property_type', 'parking', 'balcony', 'facing', 'furnishing']
     $.ajax({
         url: "/api/house/" + homeid,
         method: "GET",
@@ -68,4 +66,3 @@ function filldata() {
     });
 }
 filldata();
-console.log($(".slide-box"))
