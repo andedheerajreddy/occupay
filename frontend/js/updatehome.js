@@ -149,11 +149,11 @@ function update() {
                         if (resultData.message == "updated") {
                             var x = document.getElementById("snackbar");
                             x.style.backgroundColor = 'green'
-                            x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Your House is Added Successfully`
+                            x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Your House is Updated Successfully`
                             x.className = "show";
                             setTimeout(function() {
                                 x.className = x.className.replace("show", "");
-                                window.location.href = '/dashboard';
+                                window.location.href = '/admin/dashboard';
 
                             }, 2000);
                         }

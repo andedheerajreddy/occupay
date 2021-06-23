@@ -274,7 +274,21 @@ router.get("/", (req, res) => {
         }
     })
 })
+router.patch("/updateprofile",(req, res)=>{
+    let userId = "60a69ac14a417f3f68819173";
+    itemLib.updateItemField({ _id: userId},{$set:req.body},userModel, (err, itemDetails) => {
+        if (err) {
+            res.status(404).json({
+                error: err
+            })
+        } else {
+            res.status(200).json({
+                message: "Updated",
+            });
 
+        }
+    }
+)})
 router.patch("/accepthouse/:userId", (req, res) => {
     let userId = req.params.userId;
     let houseId = req.body.houseId;

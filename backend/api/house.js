@@ -124,8 +124,7 @@ router.post("/filter", (req, res) => {
     let a = req.body;
     a.occupiedStatus = false;
     a.isDeleted = false
-    console.log(a)
-
+    console.log(a);
     itemLib.getItemByQuery(a, houseModel, (err, result) => {
         if (err) {
             res.status(400).json({
