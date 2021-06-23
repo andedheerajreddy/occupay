@@ -96,7 +96,7 @@ $(() => {
                         <hr class="m-0">
 
                         <p>Property Age :<br> ${result[i].propertyAge}</p>
-                        <a href="#" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
+                        <a href="/home/${result[i]._id}" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
 
                     </div>
                     <div class="col-6  pr-0">
@@ -279,7 +279,13 @@ function add(id)
         url: "/api/house/addtowishlist/"+id,
         method: "PATCH",
         success: function(result) {
-            console.log(result)
+            console.log(result);
+            alert(JSON.stringify(result));
+            if(result.message=="some error")
+            snackbar("Error Occured!",false);
+            else if(result.message=="Already existed")
+            snackbar("Already Wishlisted!",false);
+            else
             snackbar("Succesfuly Added to Wishlist !",true);
         },
         error: function(err) {

@@ -33,6 +33,12 @@ function filldata()
             document.getElementsByClassName("register")[1].value=data.mobileNumber
             document.getElementsByClassName("register")[2].value=date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
             document.getElementsByClassName("register")[3].value=data.address.Street
+            s = ``;
+
+            for (let i = 0; i < cities[data.address.state].length; i++) {
+                s += `<option value="${cities[data.address.state][i]["city"]}">${cities[data.address.state][i]["city"]}</option>`
+            }
+            $("#fillc").html(s)
             document.getElementsByClassName("register")[4].value=data.address.state
             document.getElementsByClassName("register")[5].value=data.address.City
             document.getElementsByClassName("register")[6].value=data.address.pincode;
