@@ -122,6 +122,7 @@ router.patch("/:id", (req, res) => {
     let data = req.body;
     let pics = data.pics
     console.log(pics);
+    if(pics && pics.length)
     delete data.pics
     itemLib.updateItemField({ _id: houseId }, { $set: data }, houseModel, (err, itemDetails) => {
         if (err) {
@@ -129,7 +130,7 @@ router.patch("/:id", (req, res) => {
                 error: err
             })
         } else {
-            if (pics.length > 0) {
+            if (pics && pics.length>0) {
                 itemLib.updateItemField({ _id: req.params.id }, { $push: { pics: pics } }, houseModel, (err, result) => {
                     if (err) {
                         res.status(500).json({

@@ -1,6 +1,13 @@
+function snackbar(mssg,success) {
+    var x = document.getElementById("snackbar");
+    if(success)
+    x.style.backgroundColor = 'green';
+    x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ${mssg}`
+    x.className = "show";
+    setTimeout(function() { x.className = x.className.replace("show", ""); }, 2000);
+}
 $(() => {
-    let s = `                            <option value="" >Select state</option>
-`
+    let s = `<option value="" >Select state</option>`
     for (let i = 0; i < states.length; i++) {
         s += `   <option value="${states[i]}">${states[i]}</option>`
     }
@@ -45,7 +52,7 @@ $(() => {
                                                 <hr class="m-0">
                 
                                                 <p>Property Age :<br> ${result[i].propertyAge}</p>
-                                                <a href="#" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
+                                                <a href="/home/${result[i]._id}" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
                 
                                             </div>
                                             <div class="col-6  pr-0">
@@ -273,10 +280,13 @@ function add(id)
         method: "PATCH",
         success: function(result) {
             console.log(result)
+            snackbar("Succesfuly Added to Wishlist !",true);
         },
         error: function(err) {
             if (err) {
                 console.log(err);
+                snackbar("Failed ! Something Went Wrong !",false)
+
             }
         }
     });
