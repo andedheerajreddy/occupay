@@ -21,7 +21,7 @@ $(() => {
                         <div class="row no-gutters">
                             <div class="col-5">
             
-                                <img class="card-img-top" style="height: 230px;"src=/uploads/${result[0]["houseId"]["pics"][0].filename}
+                                <img class="card-img-top" style="height: 230px;"src=/uploads/${result[i]["houseId"]["pics"][0].filename}
                                 
                                 alt="Card image cap">
                                 </div>
@@ -37,8 +37,7 @@ $(() => {
                                                 <hr class="m-0">
                 
                                                 <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
-                                                <button  class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}"><a href="/home/${result[i]["houseId"]._id}">View details</a></button>
-                
+                                                <a href="/home/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
                                             </div>
                                             <div class="col-6  pr-0">
                                                 <p class="mb-1">House Type: <br>${result[i]["houseId"].houseType}</p>
@@ -48,6 +47,7 @@ $(() => {
                                                 <hr class="m-0">
                 
                                                 <p>Parking available :<br>${result[i]["houseId"].isParkingAvailable}</p>
+                                                <button  class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}" onclick="remove('${result[i]["houseId"]._id}')">Remove House</button>
                                             </div>
                                         </div>
                 
@@ -64,7 +64,7 @@ $(() => {
 <div class="row no-gutters">
     <div class="col-5">
 
-        <img class="card-img-top" style="height: 220px;"src="/uploads/${result[0]["houseId"]["pics"][0].filename}"
+        <img class="card-img-top" style="height: 220px;" src="/uploads/${result[i]["houseId"]["pics"][0].filename}"
         alt="Card image cap">
         </div>
         <div class="col-7">
@@ -79,7 +79,7 @@ $(() => {
                         <hr class="m-0">
 
                         <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
-                        <button  class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}"><a href="/home/${result[i]["houseId"]._id}">View details</a></button>
+                        <a href="/home/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
 
                     </div>
                     <div class="col-6  pr-0">
@@ -90,6 +90,7 @@ $(() => {
                         <hr class="m-0">
 
                         <p>Parking available :<br>${result[i]["houseId"].isParkingAvailable}</p>
+                        <button  class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}" onclick="remove('${result[i]["houseId"]._id}')">Remove House</button>
                        
                     </div>
                 </div>
@@ -107,3 +108,17 @@ $(() => {
         }
     })
 })
+
+function remove(houseid)
+{
+    console.log(houseid);
+    $.ajax({
+        url: "/api/user/removehouse/"+houseid,
+        method: "PATCH",
+        success: function(result) {
+            console.log(result);
+            location.reload();
+        },
+        error:function(error) {console.log(error);}
+    });
+}

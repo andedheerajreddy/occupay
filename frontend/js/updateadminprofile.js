@@ -23,10 +23,10 @@ $('#fills').on('change', function() {
 function filldata()
 {
     $.ajax({
-        url: "/api/user",
+        url: "/api/admin",
         method: "GET",
         success: function(result) {
-            data=result.result;
+            data=result.result[0];
             console.log(data);
             var date=new Date(data.dateOfBirth);
             document.getElementsByClassName("register")[0].value=data.name;
@@ -86,7 +86,7 @@ function update()
     if (c == 7) {
         $.ajax({
             type: "PATCH",
-            url: "/api/user/updateprofile",
+            url: "/api/admin/updateprofile",
             data: {
                 name: name,
                 dateOfBirth: dateOfBirth,
@@ -105,7 +105,7 @@ function update()
                     x.style.backgroundColor = 'green'
                     x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Updated Your Details !`
                     x.className = "show";
-                    location.href = "/dashboard"
+                    location.href = "/admin/dashboard"
                 }
             }, 
             error: function(err) {

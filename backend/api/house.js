@@ -39,17 +39,39 @@ router.patch("/addtowishlist/:id", (req, res) => {
     const userId = "60cdc02cd333591b4c72eba6"
     const houseID = req.params.id;
     console.log(houseID)
-    itemLib.updateItemField({ _id: userId }, { $push: { wishlist: { houseId: houseID } } }, userModel, async(err, result1) => {
-        if (err) {
-            res.status(400).json({
+    itemLib.getItemByQuery({"wishlist.houseId": houseID},userModel,(err, item) => {
+        if(err)
+        {
+            return res.status(400).json({
                 message: "Some error",
             });
-        } else {
-            await res.status(200).json({
-                message: "Updated",
-            });
         }
+        else
+        {   
+            if(item.length>0)
+            {
+                return res.status(200).json({
+                    message: "Already existed",
+                });
+            }
+            else
+            {
+                itemLib.updateItemField({ _id: userId }, { $push: { wishlist: { houseId: houseID } } }, userModel, async(err, result1) => {
+                    if (err) {
+                       return  res.status(400).json({
+                            message: "Some error",
+                        });
+                    } else {
+                        return res.status(200).json({
+                            message: "Updated",
+                        });
+                    }
+                })
+            }
+        }
+
     })
+    
 })
 router.post("/add", upload.single("file"), (req, res) => {
     let data = req.body;
@@ -102,8 +124,7 @@ router.post("/filter", (req, res) => {
     let a = req.body;
     a.occupiedStatus = false;
     a.isDeleted = false
-    console.log(a)
-
+    console.log(a);
     itemLib.getItemByQuery(a, houseModel, (err, result) => {
         if (err) {
             res.status(400).json({

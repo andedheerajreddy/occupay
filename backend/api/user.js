@@ -68,7 +68,25 @@ router.post("/resendVerificationEmail", async(req, res, next) => {
         })
     }
 });
-
+router.patch("/removehouse/:houseid",(req, res)=>{  
+     let userId = "60cdc02cd333591b4c72eba6"
+itemLib.updateItemField({ _id: userId }, { $pull: { wishlist: { houseId: req.params.houseid } } }, userModel, async(err, result) => {
+        if(err)
+        {
+            res.status(404).json({
+                message: "error occured",
+            });
+        }
+        else
+        {
+            res.status(200).json({
+                result: result,
+                message:"removed"
+                
+            });   
+        }
+    })
+})
 router.patch("/verifyEmail", async(req, res, next) => {
     console.log(req.body)
     const { verificationKey } = req.body;

@@ -1,3 +1,4 @@
+$("#")
 function snackbar(mssg,success) {
     var x = document.getElementById("snackbar");
     if(success)
@@ -23,12 +24,12 @@ $(() => {
     });
     var data = ``;
     $.ajax({
-        url: "/api/house/available",
+        url: "/api/admin",
         method: "GET",
         success: function(result) {
-            // result = result.result;
-            result = result.result;
-            //console.log(result);
+            result = result.result[0].houses;
+            // result = result
+            console.log(result);
             for (let i = 0; i < result.length; i++) {
                 data += ` <div class="row mt-2">
                   <div class="col-6 m-0 p-0">
@@ -36,34 +37,34 @@ $(() => {
                         <div class="row no-gutters">
                             <div class="col-5">
             
-                                <img class="card-img-top" style="height: 230px;"src=/uploads/${result[i].pics[0].filename}
+                                <img class="card-img-top" style="height: 230px;"src=/uploads/${result[i]["houseId"].pics[0].filename}
                                 
                                 alt="Card image cap">
                                 </div>
                                 <div class="col-7">
                 
                                     <div class="card-body pt-1">
-                                        <h5 class="card-title">${result[i].houseName}</h5>
+                                        <h5 class="card-title">${result[i]["houseId"].houseName}</h5>
                                         <div class="row" style="font-size: smaller;">
                                             <div class="col-6 pr-0">
-                                                <p class='mb-1'>Preferred Tenants:<br> ${result[i].preferred_tenant}</p>
+                                                <p class='mb-1'>Preferred Tenants:<br> ${result[i]["houseId"].preferred_tenant}</p>
                                                 <hr class="m-0">
-                                                <p class='mb-1'>Rent :<br>${result[i].cost.rentPerMonth}</p>
+                                                <p class='mb-1'>Rent :<br>${result[i]["houseId"].cost.rentPerMonth}</p>
                                                 <hr class="m-0">
                 
-                                                <p>Property Age :<br> ${result[i].propertyAge}</p>
-                                                <a href="/home/${result[i]._id}" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
+                                                <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
+                                                <a href="/home/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
                 
                                             </div>
                                             <div class="col-6  pr-0">
-                                                <p class="mb-1">House Type: <br>${result[i].houseType}</p>
+                                                <p class="mb-1">House Type: <br>${result[i]["houseId"].houseType}</p>
                                                 <hr class="m-0">
                 
-                                                <p class="mb-1">Advance : <br>${result[i].cost.advance}</p>
+                                                <p class="mb-1">Advance : <br>${result[i]["houseId"].cost.advance}</p>
                                                 <hr class="m-0">
                 
-                                                <p>Parking available :<br>${result[i].isParkingAvailable}</p>
-                                                <button class="btn btn-outline-info" id="Intrested-${result[i]._id}" onclick="add('${result[i]._id}')" ">Add to Wishlist</button>
+                                                <p>Parking available :<br>${result[i]["houseId"].isParkingAvailable}</p>
+                                                <a href="/updatehome/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">Update details</a>
                 
                                             </div>
                                         </div>
@@ -81,33 +82,33 @@ $(() => {
 <div class="row no-gutters">
     <div class="col-5">
 
-        <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i].pics[0].filename}
+        <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i]["houseId"].pics[0].filename}
         alt="Card image cap">
         </div>
         <div class="col-7">
 
             <div class="card-body pt-1">
-                <h5 class="card-title">${result[i].houseName}</h5>
+                <h5 class="card-title">${result[i]["houseId"].houseName}</h5>
                 <div class="row" style="font-size: smaller;">
                     <div class="col-6 pr-0">
-                        <p class='mb-1'>Preferred Tenants:<br> ${result[i].preferred_tenant}</p>
+                        <p class='mb-1'>Preferred Tenants:<br> ${result[i]["houseId"].preferred_tenant}</p>
                         <hr class="m-0">
-                        <p class='mb-1'>Rent :<br>${result[i].cost.rentPerMonth}</p>
+                        <p class='mb-1'>Rent :<br>${result[i]["houseId"].cost.rentPerMonth}</p>
                         <hr class="m-0">
 
-                        <p>Property Age :<br> ${result[i].propertyAge}</p>
-                        <a href="/home/${result[i]._id}" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
+                        <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
+                        <a href="/home/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
 
                     </div>
                     <div class="col-6  pr-0">
-                        <p class="mb-1">House Type: <br>${result[i].houseType}</p>
+                        <p class="mb-1">House Type: <br>${result[i]["houseId"].houseType}</p>
                         <hr class="m-0">
 
-                        <p class="mb-1">Advance : <br>${result[i].cost.advance}</p>
+                        <p class="mb-1">Advance : <br>${result[i]["houseId"].cost.advance}</p>
                         <hr class="m-0">
 
-                        <p>Parking available :<br>${result[i].isParkingAvailable}</p>
-                        <button  class="btn btn-outline-info " id="Intrested-${result[i]._id}" onclick="add('${result[i]._id}')">Add to Wishlist</button>
+                        <p>Parking available :<br>${result[i]["houseId"].isParkingAvailable}</p>
+                        <a href="/updatehome/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">Update details</a>
 
                     </div>
                 </div>
@@ -171,7 +172,8 @@ function filter() {
         method: "POST",
         data: data,
         success: function(result) {
-            result = result.result
+            result = result.result[0];
+            console.log(result);
             data = ``;
             for (let i = 0; i < result.length; i++) {
                 data += ` <div class="row mt-2">
@@ -180,34 +182,34 @@ function filter() {
                         <div class="row no-gutters">
                             <div class="col-5">
             
-                                <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i].pics[0].filename}
+                                <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i]["houseId"].pics[0].filename}
                                 
                                 alt="Card image cap">
                                 </div>
                                 <div class="col-7">
                 
                                     <div class="card-body pt-1">
-                                        <h5 class="card-title">${result[i].houseName}</h5>
+                                        <h5 class="card-title">${result[i]["houseId"].houseName}</h5>
                                         <div class="row" style="font-size: smaller;">
                                             <div class="col-6 pr-0">
-                                                <p class='mb-1'>Preferred Tenants:<br> ${result[i].preferred_tenant}</p>
+                                                <p class='mb-1'>Preferred Tenants:<br> ${result[i]["houseId"].preferred_tenant}</p>
                                                 <hr class="m-0">
-                                                <p class='mb-1'>Rent :<br>${result[i].cost.rentPerMonth}</p>
+                                                <p class='mb-1'>Rent :<br>${result[i]["houseId"].cost.rentPerMonth}</p>
                                                 <hr class="m-0">
                 
-                                                <p>Property Age :<br> ${result[i].propertyAge}</p>
-                                                <a href="#" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
+                                                <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
+                                                <a href="#" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
                 
                                             </div>
                                             <div class="col-6  pr-0">
-                                                <p class="mb-1">House Type: <br>${result[i].houseType}</p>
+                                                <p class="mb-1">House Type: <br>${result[i]["houseId"].houseType}</p>
                                                 <hr class="m-0">
                 
-                                                <p class="mb-1">Advance : <br>${result[i].cost.advance}</p>
+                                                <p class="mb-1">Advance : <br>${result[i]["houseId"].cost.advance}</p>
                                                 <hr class="m-0">
                 
-                                                <p>Parking available :<br>${result[i].isParkingAvailable}</p>
-                                                <button class="btn btn-outline-info " id="Intrested-${result[i]._id}"onclick="add('${result[i]._id}')" >Add to Wishlist</button>
+                                                <p>Parking available :<br>${result[i]["houseId"].isParkingAvailable}</p>
+                                                <a href="/updatehome/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">Update details</a>
                 
                                             </div>
                                         </div>
@@ -225,33 +227,33 @@ function filter() {
 <div class="row no-gutters">
     <div class="col-5">
 
-        <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i].pics[0].filename}
+        <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i]["houseId"].pics[0].filename}
         alt="Card image cap">
         </div>
         <div class="col-7">
 
             <div class="card-body pt-1">
-                <h5 class="card-title">${result[i].houseName}</h5>
+                <h5 class="card-title">${result[i]["houseId"].houseName}</h5>
                 <div class="row" style="font-size: smaller;">
                     <div class="col-6 pr-0">
-                        <p class='mb-1'>Preferred Tenants:<br> ${result[i].preferred_tenant}</p>
+                        <p class='mb-1'>Preferred Tenants:<br> ${result[i]["houseId"].preferred_tenant}</p>
                         <hr class="m-0">
-                        <p class='mb-1'>Rent :<br>${result[i].cost.rentPerMonth}</p>
+                        <p class='mb-1'>Rent :<br>${result[i]["houseId"].cost.rentPerMonth}</p>
                         <hr class="m-0">
 
-                        <p>Property Age :<br> ${result[i].propertyAge}</p>
-                        <a href="#" class="btn btn-outline-info " id="Details-${result[i]._id}">View details</a>
+                        <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
+                        <a href="#" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
 
                     </div>
                     <div class="col-6  pr-0">
-                        <p class="mb-1">House Type: <br>${result[i].houseType}</p>
+                        <p class="mb-1">House Type: <br>${result[i]["houseId"].houseType}</p>
                         <hr class="m-0">
 
-                        <p class="mb-1">Advance : <br>${result[i].cost.advance}</p>
+                        <p class="mb-1">Advance : <br>${result[i]["houseId"].cost.advance}</p>
                         <hr class="m-0">
 
-                        <p>Parking available :<br>${result[i].isParkingAvailable}</p>
-                        <button class="btn btn-outline-info pr-4" id="Intrested-${result[i]._id}" onclick="add('${result[i]._id}')">Add to Wishlist</button>
+                        <p>Parking available :<br>${result[i]["houseId"].isParkingAvailable}</p>
+                        < <a href="/home/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">Update details</a>
 
                     </div>
                 </div>
@@ -265,6 +267,7 @@ function filter() {
                 data += `</div> </div>  </div>`
 
             }
+            console.log(data);
             $("#cards").html(data)
 
         },

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update Profile | Occupay</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <div class="">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+
+                <div style="text-align: center; margin-left: 25%;margin-right: 10%; width: 50%;">
+                    <h2 class="form-title" style="text-align: center;padding-top: 10% !important">Update Your Profile</h2>
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input class="register" type="text" name="name" id="name" placeholder="Your Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-phone"></i></label>
+                        <input class="register" type="number" name="number" placeholder="Your mobile number" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pass"><i class="fas fa-calendar-day"></i></label>
+                        <input class="register" placeholder="Enter DOB" class="textbox-n" type="text" onfocus="(this.type='date')" id="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-road"></i></label>
+                        <input class="register" type="text" name="name" id="street" placeholder="Street" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-city"></i></label>
+                        <select class="register" name="gfg" id="fills" aria-placeholder="select state">
+                        </select> 
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-building"></i></label>
+                        <select class="register" name="gfg" id="fillc" aria-placeholder="select city">
+                            <option value="" hidden>select city</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="fa fa-map-pin" aria-hidden="true"></i>
+                        </label>
+                        <input class="register" type="number" name="name" id="name" placeholder="Pincode" />
+                    </div>
+                    <div class="form-group form-button" style="padding-bottom: 10%;">
+                        <input type="button" name="signup" id="signup" class="form-submit" value="Update" onclick="update()" />
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- Sing in  Form -->
+
+    </div>
+    <div id="snackbar"></div>
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="js/main.js"></script> -->
+    <script src="/js/dropdowns.js"></script>
+
+    <script src="/js/updateadminprofile.js"></script>
+</body>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>

@@ -43,11 +43,20 @@ app.get("/register", (req, res) => {
 app.get("/verify", (req, res) => {
     res.render('verify', { title: "home" })
 })
+app.get("/verifyadmin", (req, res) => {
+    res.render('verifyadmin', { title: "home" })
+})
 app.get("/resend", (req, res) => {
     res.render('resend', { title: "home" })
 })
+app.get("/resendadmin", (req, res) => {
+    res.render('resendadmin', { title: "home" })
+})
 app.get("/dashboard", (req, res) => {
     res.render('dashboard', { title: "home" })
+})
+app.get("/admin/dashboard", (req, res) => {
+    res.render('admindashboard', { title: "home" })
 })
 app.get("/home/:homeid", (req, res) => {
     res.render('homedetail', { title: "home" })
@@ -63,6 +72,15 @@ app.get("/wishlist", (req, res) => {
 })
 app.get("/updateprofile/", (req, res) => {
     res.render('updateprofile', { title: "home" })
+})
+app.get("/admin/updateprofile/", (req, res) => {
+    res.render('updateadminprofile', { title: "home" })
+})
+app.get("/signup/organiser", (req, res) => {
+    res.render('organisersignup', { title: "home" })
+})
+app.get("/login/organiser", (req, res) => {
+    res.render('adminlogin', { title: "home" })
 })
 app.use("/api", require("./backend/api/allapiroutes"))
 
