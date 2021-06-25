@@ -1,4 +1,4 @@
-$("#")
+var UserData;
 function snackbar(mssg,success) {
     var x = document.getElementById("snackbar");
     if(success)
@@ -27,12 +27,14 @@ $(() => {
         url: "/api/admin",
         method: "GET",
         success: function(result) {
+            UserData=result.result[0];
+            fillUserData();
             result = result.result[0].houses;
             // result = result
             console.log(result);
             for (let i = 0; i < result.length; i++) {
-                data += ` <div class="row mt-2">
-                  <div class="col-6 m-0 p-0">
+                data += ` <div class="row">
+                  <div class="col-7 m-0 p-0">
                     <div class="card m-0 p-0" style="width: 32rem ;margin: 0%;">
                         <div class="row no-gutters">
                             <div class="col-5">
@@ -53,7 +55,7 @@ $(() => {
                                                 <hr class="m-0">
                 
                                                 <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
-                                                <a href="/home/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
+                                                <a href="/adminhome/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
                 
                                             </div>
                                             <div class="col-6  pr-0">
@@ -75,7 +77,7 @@ $(() => {
                             </div>
                         </div>
                 
-                    </div> <div class="col-xl-6 m-0 p-0 col-lg-12">`
+                    </div> <div class="col-xl-5 m-0 p-0 col-lg-12">`
                 i++;
                 if (i < result.length) {
                     data += ` <div class="card m-0 p-0" style="width: 32rem ;margin: 0%;">
@@ -97,7 +99,7 @@ $(() => {
                         <hr class="m-0">
 
                         <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
-                        <a href="/home/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
+                        <a href="/homadmine/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
 
                     </div>
                     <div class="col-6  pr-0">
@@ -126,176 +128,38 @@ $(() => {
         }
     })
 })
-
-
-
-function filter() {
-    let state = String(document.getElementsByClassName("filters")[0].value);
-    let City = String(document.getElementsByClassName("filters")[1].value);
-    let rentPerMonth = String(document.getElementsByClassName("filters")[2].value);
-    let houseType = String(document.getElementsByClassName("filters")[3].value);
-    let furnishing = String(document.getElementsByClassName("filters")[4].value);
-    let data = {}
-    if (state != "") {
-        data["address.state"] = state
+function openPage(pageName, elmnt, id) {
+    var i, tabcontent, tablinks;
+    if (id == 1) {
+        document.getElementById("0").style.borderBottomColor = "white";
+    } else 
+        document.getElementById("1").style.borderBottomColor = "white";
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
     }
-    if (City != "") {
-        data["address.City"] = City;
+    tablinks = document.getElementsByClassName("tabs");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
     }
-    if (houseType != "") {
-        data.houseType = houseType;
-    }
-    if (furnishing != "") {
-        data.furnishing = furnishing;
-    }
-    if (rentPerMonth != "") {
-        if (rentPerMonth == "0") {
-            data["cost.rentPerMonth"] = { $lte: 5000 }
-
-        } else if (rentPerMonth == "1") {
-            data["cost.rentPerMonth"] = { $gte: 5000, $lte: 10000 }
-
-
-        } else if (rentPerMonth == "2") {
-            data["cost.rentPerMonth"] = { $gte: 10000, $lte: 20000 }
-
-
-
-        } else if (rentPerMonth == "3") {
-            data["cost.rentPerMonth"] = { $gte: 20000 }
-
-
-        }
-    }
-    $.ajax({
-        url: "/api/house/filter",
-        method: "POST",
-        data: data,
-        success: function(result) {
-            result = result.result[0];
-            console.log(result);
-            data = ``;
-            for (let i = 0; i < result.length; i++) {
-                data += ` <div class="row mt-2">
-                  <div class="col-6 m-0 p-0">
-                    <div class="card m-0 p-0" style="width: 32rem ;margin: 0%;">
-                        <div class="row no-gutters">
-                            <div class="col-5">
-            
-                                <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i]["houseId"].pics[0].filename}
-                                
-                                alt="Card image cap">
-                                </div>
-                                <div class="col-7">
-                
-                                    <div class="card-body pt-1">
-                                        <h5 class="card-title">${result[i]["houseId"].houseName}</h5>
-                                        <div class="row" style="font-size: smaller;">
-                                            <div class="col-6 pr-0">
-                                                <p class='mb-1'>Preferred Tenants:<br> ${result[i]["houseId"].preferred_tenant}</p>
-                                                <hr class="m-0">
-                                                <p class='mb-1'>Rent :<br>${result[i]["houseId"].cost.rentPerMonth}</p>
-                                                <hr class="m-0">
-                
-                                                <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
-                                                <a href="#" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
-                
-                                            </div>
-                                            <div class="col-6  pr-0">
-                                                <p class="mb-1">House Type: <br>${result[i]["houseId"].houseType}</p>
-                                                <hr class="m-0">
-                
-                                                <p class="mb-1">Advance : <br>${result[i]["houseId"].cost.advance}</p>
-                                                <hr class="m-0">
-                
-                                                <p>Parking available :<br>${result[i]["houseId"].isParkingAvailable}</p>
-                                                <a href="/updatehome/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">Update details</a>
-                
-                                            </div>
-                                        </div>
-                
-                                        <!-- </div> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                
-                    </div> <div class="col-xl-6 m-0 p-0 col-lg-12">`
-                i++;
-                if (i < result.length) {
-                    data += ` <div class="card m-0 p-0" style="width: 30rem ;margin: 0%;">
-<div class="row no-gutters">
-    <div class="col-5">
-
-        <img class="card-img-top" style="height: 220px;"src=/uploads/${result[i]["houseId"].pics[0].filename}
-        alt="Card image cap">
-        </div>
-        <div class="col-7">
-
-            <div class="card-body pt-1">
-                <h5 class="card-title">${result[i]["houseId"].houseName}</h5>
-                <div class="row" style="font-size: smaller;">
-                    <div class="col-6 pr-0">
-                        <p class='mb-1'>Preferred Tenants:<br> ${result[i]["houseId"].preferred_tenant}</p>
-                        <hr class="m-0">
-                        <p class='mb-1'>Rent :<br>${result[i]["houseId"].cost.rentPerMonth}</p>
-                        <hr class="m-0">
-
-                        <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
-                        <a href="#" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
-
-                    </div>
-                    <div class="col-6  pr-0">
-                        <p class="mb-1">House Type: <br>${result[i]["houseId"].houseType}</p>
-                        <hr class="m-0">
-
-                        <p class="mb-1">Advance : <br>${result[i]["houseId"].cost.advance}</p>
-                        <hr class="m-0">
-
-                        <p>Parking available :<br>${result[i]["houseId"].isParkingAvailable}</p>
-                        < <a href="/home/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">Update details</a>
-
-                    </div>
-                </div>
-
-                <!-- </div> -->
-            </div>
-        </div>
-    </div>
-`
-                }
-                data += `</div> </div>  </div>`
-
-            }
-            console.log(data);
-            $("#cards").html(data)
-
-        },
-        error: function(err) {
-            console.log(err)
-        }
-    })
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.borderBottom = "3px solid #2980b9";
 }
-function add(id)
-{
-    $.ajax({
-        url: "/api/house/addtowishlist/"+id,
-        method: "PATCH",
-        success: function(result) {
-            console.log(result);
-            if(result.message=="some error")
-            snackbar("Error Occured!",false);
-            else if(result.message=="Already existed")
-            snackbar("Already Wishlisted!",false);
-            else
-            snackbar("Succesfuly Added to Wishlist !",true);
-        },
-        error: function(err) {
-            if (err) {
-                console.log(err);
-                snackbar("Failed ! Something Went Wrong !",false)
+element = document.getElementById("0");
+element.click();
+function fillUserData() {
 
-            }
-        }
-    });
+     let userdata = `
+     <div class="row"><h4><label> Name </label> : ${UserData.name} </h4></div>
+     <div class="row"><h4><label>Email</label> : ${UserData.email}</h4></div>
+    <div class="row"><h4><label>Phone Number</label> :${UserData.mobileNumber}</h4></div>
+    <div class="row"><h4><label> Street </label> : ${UserData.address.Street} </h4></div>
+    <div class="row"><h4><label> City </label> : ${UserData.address.city} </h4></div>
+    <div class="row"><h4><label> locality </label> : ${UserData.address.locality} </h4></div>
+    <div class="row"><h4><label> Pincode </label> : ${UserData.address.pincode} </h4></div>
+    <div class="row"><h4><label> Pincode </label> : ${UserData.address.state} </h4></div>
+    <div class="row"><h4><label> No of Houses </label> : ${UserData.houses.length} </h4></div>
+   `
+    $("#userdata").append(userdata);
+    console.log(UserData);
 }

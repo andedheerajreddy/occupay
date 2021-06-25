@@ -14,6 +14,8 @@ $(() => {
         success: function(result) {
             result = result.result[0].wishlist;
             console.log(result);
+            if(result.length==0)
+                $("#display").removeClass("d-none");
             for (let i = 0; i < result.length; i++) {
                 data += ` <div class="row mt-2" style="margin-left:15%">
                   <div class="col-6 m-0 p-0">

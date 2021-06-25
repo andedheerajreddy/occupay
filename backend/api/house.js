@@ -174,7 +174,7 @@ router.patch("/:id", (req, res) => {
     })
 })
 router.get("/:houseId", (req, res) => {
-    itemLib.getItemByQueryWithPopulate({ _id: req.params.houseId, isDeleted: false }, houseModel, "adminId", (err, result) => {
+    itemLib.getItemByQueryWithPopulate({ _id: req.params.houseId, isDeleted: false }, houseModel, "adminId usersInterested.userId", (err, result) => {
         if (err || result.length <= 0) {
             res.status(400).json({
                 message: "some error occurred",
