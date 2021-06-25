@@ -1,6 +1,25 @@
 select {
     color: #999;
 }
+button.btn:focus,
+.btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+.tabcontent {
+    color: rgb(17, 17, 17);
+    display: none;
+    padding: 0px 20px;
+    margin-left: 6%;
+    height: 100%;
+}
+.row label {
+    color: rgb(6, 184, 255);
+}
+.row.tabs {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
 #snackbar {
     visibility: hidden;
     min-width: 250px;

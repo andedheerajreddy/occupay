@@ -61,6 +61,9 @@ app.get("/admin/dashboard", (req, res) => {
 app.get("/home/:homeid", (req, res) => {
     res.render('homedetail', { title: "home" })
 })
+app.get("/adminhome/:homeid", (req, res) => {
+    res.render('adminhomedetails', { title: "home" })
+})
 app.get("/addhome", (req, res) => {
     res.render('addhouses', { title: "home" })
 })
