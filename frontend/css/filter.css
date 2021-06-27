@@ -80,6 +80,7 @@
     display: inline-block;
     height: 44px;
     min-width: 150px;
+    max-width: 150px !important;
     padding: 0 10px;
     font-family: 'Cambay';
     font-size: 18px;

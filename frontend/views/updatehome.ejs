@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update Your House Details</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <div class="">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div style="text-align: center; margin-left: 25%;margin-right: 10%; width: 50%;">
+                    <h2 class="form-title" style="text-align: center;padding-top: 10% !important">Update Your Houses !</h2>
+                    <div class="form-group">
+                        <label for="houseName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input class="register" type="text" name="houseName" id="houseName" placeholder="Your House Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="houseDescription"><i class="zmdi zmdi-email"></i></label>
+                        <input class="register" type="textarea" name="houseDescription" id="email" placeholder="Enter Your House Description" />
+                    </div>
+
+                    Select More Images of House to Upload:
+                    <input type="file" id="images" name="files" multiple accept="image/*">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-road"></i></label>
+                        <input class="register" type="text" name="Street" id="street" placeholder="Street" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-city"></i></label>
+                        <select class="register" name="gfg" id="fills" aria-placeholder="select state">
+                            <option value="" hidden>select state</option>
+                                            <option value="dsfds">dfdsaf</option>
+                            <option value="cdfdf">fsgf</option>
+                        </select> </div>
+                    <div class="form-group">
+                        <label for="name"><i class="fa fa-map-pin" aria-hidden="true"></i>
+                        </label>
+                        <input class="register" type="number" name="name" id="name" placeholder="Pincode" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-building"></i></label>
+                        <select class="register" name="City" id="fillc" aria-placeholder="select city">
+                            <option value="" hidden>select city</option>
+                            <option value="viz">viz</option>
+                            <option value="hyd">hyd</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-globe-asia"></i></label>
+                        <select class="register" name="gfg" id="" aria-placeholder="select country">
+                            <option value="" hidden>select country</option>
+                                            <option value="b">b</option>
+                            <option value="b">b</option>
+                        </select></div>
+                    <div class="form-group">
+                        <label for="rentPerMonth"><i class="fa fa-map-pin" aria-hidden="true"></i>
+                            </label>
+                        <input class="register" type="number" name="rentPerMonth" id="rentPerMonth" placeholder="Enter Rent Per Month" />
+                    </div>
+                    <div class="form-group">
+                        <label for="maintenance"><i class="fa fa-map-pin" aria-hidden="true"></i>
+                            </label>
+                        <input class="register" type="number" name="maintenance" id="maintenance" placeholder="Enter Maintenance" />
+                    </div>
+                    <div class="form-group">
+                        <label for="advance"><i class="fa fa-map-pin" aria-hidden="true"></i>
+                            </label>
+                        <input class="register" type="number" name="advance" id="advance" placeholder="Enter Advance" />
+                    </div>
+                    <div class="form-group">
+                        <label for="preferred-tenant"><i class="fas fa-globe-asia"></i></label>
+                        <select class="register" name="preferred-tenant" id="" aria-placeholder="Select Preferred Tenant">
+                                <option value="" hidden>Select Preferred Tenant</option>
+                                <option value="any">any</option>
+                                <option value="family">family</option>
+                                <option value="bachelor">bachelor</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="propertyAge"><i class="fa fa-map-pin" aria-hidden="true"></i>
+                            </label>
+                        <input class="register" type="number" name="propertyAge" id="propertyAge" placeholder="Enter Property Age (in years) " />
+                    </div>
+                    <div class="form-group">
+                        <label for="property-type"><i class="fas fa-globe-asia"></i></label>
+                        <select class="register" name="property-type" id="" aria-placeholder="Select Property Type">
+                                <option value="" hidden>Select Property Type</option>
+                                <option value="Apartment">Apartment</option>
+                                <option value="individual">Individual</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="house-type"><i class="fas fa-globe-asia"></i></label>
+                        <select class="register" name="house-type" id="" aria-placeholder="Select House Type">
+                                <option value="" hidden>Select House Type</option>
+                                <option value="1 BHK">1 BHK</option>
+                                <option value="2 BHK">2 BHK</option>
+                                <option value="3 BHK">3 BHK</option>
+                                <option value="4 BHK">4 BHK</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="parking"><i class="fas fa-globe-asia"></i></label>
+                        <select class="register" name="parking" id="parking" aria-placeholder="Select Vechicles for Parking">
+                                <option value="" hidden>Select Vechicles for Parking</option>
+                                <option value="Car">Car</option>
+                                <option value="Bike">Bike</option>
+                                <option value="Car & Bike">Car & Bike</option>
+                            </select>
+                    </div>
+                    <div class="form-group" style="margin-left:-70% ;">
+                        <input type="checkbox" name="Non-veg" id="Non-veg" class="agree-term" />
+
+                        <label for="agree-term" class="label-agree-term"><span><span></span></span>                        Non Veg Allowed
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="balcony"><i class="fa fa-map-pin" aria-hidden="true"></i>
+                            </label>
+                        <input class="register" type="number" name="balcony" id="balcony" placeholder="Enter No.of Balconies" />
+                    </div>
+                    <div class="form-group">
+                        <label for="facing"><i class="fas fa-globe-asia"></i></label>
+                        <select class="register" name="facing" id="facing" aria-placeholder="Select Facing of Your House">
+                                <option value="" hidden>Select Facing of Your House</option>
+                                <option value="North">North</option>
+                                <option value="South">South</option>
+                                <option value="West">West</option>
+                                <option value="East">East</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="furnishing"><i class="fas fa-globe-asia"></i></label>
+                        <select class="register" name="furnishing" id="furnishing" aria-placeholder="Select Type of Furnishing">
+                                <option value="" hidden>Select Type of Furnishing</option>
+                                <option value="None">None</option>
+                                <option value="Semi">Semi</option>
+                                <option value="Complete">Complete</option>
+                            </select>
+                    </div>
+                    <div class="form-group" style="margin-left:-80% ;">
+                        <input type="checkbox" name="Security" id="Security" class="agree-term" />
+
+                        <label for="agree-term" class="label-agree-term"><span><span></span></span>   Security
+                        </label>
+                    </div>
+                    <div class="form-group form-button" style="padding-bottom: 10%;">
+                        <input type="button" name="signup" id="signup" class="form-submit" value="Update Your House" onclick="update()" />
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- Sing in  Form -->
+
+    </div>
+    <div id="snackbar"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="js/main.js"></script> -->
+    <script src="/js/dropdowns.js"></script>
+
+    <script src="/js/updatehome.js"></script>
+</body>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>

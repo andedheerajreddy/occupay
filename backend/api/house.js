@@ -2,14 +2,76 @@ const express = require("express");
 const router = express.Router();
 const itemLib = require("../lib/itemlib");
 const mongoose = require("mongoose");
-
+var fs = require('fs');
+var path = require('path');
 const houseModel = require("../models/house");
 const adminModel = require("../models/admin");
 const userModel = require("../models/user");
+var multer = require('multer');
 
-router.post("/add", (req, res) => {
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, __dirname + '/../../frontend/uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
+
+var upload = multer({ storage: storage });
+router.post("/addpics", upload.array("file", 6), (req, res) => {
+    console.log(req.files);
+    let a = []
+    for (let i = 0; i < req.files.length; i++) {
+        var img = fs.readFileSync(req.files[i].path);
+        var encode_image = img.toString('base64');
+        var finalimage = {
+            filename: req.files[i].filename,
+            contentType: req.files[i].mimetype,
+        }
+        a.push(finalimage);
+    }
+    // console.log(a);
+    res.json({ 'data': a })
+        //save here
+})
+router.patch("/addtowishlist/:id", (req, res) => {
+    const userId = "60cdc02cd333591b4c72eba6"
+    const houseID = req.params.id;
+    console.log(houseID)
+    itemLib.getItemByQuery({ "wishlist.houseId": houseID }, userModel, (err, item) => {
+        if (err) {
+            return res.status(400).json({
+                message: "Some error",
+            });
+        } else {
+            if (item.length > 0) {
+                return res.status(200).json({
+                    message: "Already existed",
+                });
+            } else {
+                itemLib.updateItemField({ _id: userId }, { $push: { wishlist: { houseId: houseID } } }, userModel, async(err, result1) => {
+                    if (err) {
+                        return res.status(400).json({
+                            message: "Some error",
+                        });
+                    } else {
+                        return res.status(200).json({
+                            message: "Updated",
+                        });
+                    }
+                })
+            }
+        }
+
+    })
+
+})
+router.post("/add", upload.single("file"), (req, res) => {
     let data = req.body;
+    console.log(data);
     data._id = new mongoose.Types.ObjectId()
+    data.adminId = "60a69ab64a417f3f68819172"
     itemLib.createitem(data, houseModel, (err, itemDetails) => {
         if (err) {
             res.status(404).json({
@@ -17,9 +79,11 @@ router.post("/add", (req, res) => {
             })
         } else {
             const houseId = itemDetails._id;
-            itemLib.updateItemField({ _id: req.user.userId }, { $push: { houses: { houseId } } }, adminModel, (err, result) => {
+            console.log(itemDetails);
+            const userId = "60a69ab64a417f3f68819172"
+            itemLib.updateItemField({ _id: userId }, { $push: { houses: { houseId } } }, adminModel, (err, result) => {
                 if (err) {
-                    res.status(400).json({ error: "err1" });
+                    res.status(400).json({ message: "error", err });
                 } else {
 
                     res.status(201).json({
@@ -49,8 +113,62 @@ router.get("/available", (req, res) => {
 })
 
 
+router.post("/filter", (req, res) => {
+    console.log(req.body)
+    let a = req.body;
+    a.occupiedStatus = false;
+    a.isDeleted = false
+    console.log(a);
+    itemLib.getItemByQuery(a, houseModel, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                message: err,
+            });
+        } else {
+            res.status(200).json({
+                message: "Successfully retrieved",
+                result,
+            });
+        }
+    })
+})
+router.patch("/:id", (req, res) => {
+    var houseId = req.params.id;
+    let data = req.body;
+    let pics = data.pics
+    console.log(pics);
+    if (pics && pics.length)
+        delete data.pics
+    itemLib.updateItemField({ _id: houseId }, { $set: data }, houseModel, (err, itemDetails) => {
+        if (err) {
+            res.status(404).json({
+                error: err
+            })
+        } else {
+            if (pics && pics.length > 0) {
+                itemLib.updateItemField({ _id: req.params.id }, { $push: { pics: pics } }, houseModel, (err, result) => {
+                    if (err) {
+                        res.status(500).json({
+                            error: err,
+                        });
+                    } else {
+                        return res.status(200).json({
+                            message: "updated",
+                            result,
+                        });
+                    }
+                })
+            }
+            let result = itemDetails
+            res.status(200).json({
+                message: "updated",
+                result,
+            });
+        }
+    })
+})
 router.get("/:houseId", (req, res) => {
-    itemLib.getItemByQueryWithPopulate({ _id: req.params.houseId, isDeleted: false }, houseModel, "adminId", (err, result) => {
+    itemLib.getItemByQueryWithPopulate({ _id: req.params.houseId, isDeleted: false }, houseModel, "adminId usersInterested.userId", (err, result) => {
         if (err || result.length <= 0) {
             res.status(400).json({
                 message: "some error occurred",

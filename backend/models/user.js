@@ -34,6 +34,7 @@ const userSchema = mongoose.Schema({
         status: { type: String }
 
     }],
+    wishlist:[{houseId: { type: mongoose.Schema.Types.ObjectID, ref: "House" }}],
     housesHistory: [{
         houseId: { type: mongoose.Schema.Types.ObjectID, ref: "House" },
         joinDate: { type: Date },

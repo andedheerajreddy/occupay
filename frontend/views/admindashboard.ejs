@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>todo</title>
+    <link rel="stylesheet" href="/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    
+
+</head>
+
+<body>
+    <%- include('partials/nav') %>
+    <div class="container">
+        <div class="row tabs mt-2">
+          <button class="btn col-6" id="0" type="button" style="background-color: white !important;" onclick="openPage('Quizzes', this,0)">Your Houses</button>
+          <button class="btn col-6" id="1" type="button" style="background-color: white !important;"  onclick="openPage('Profile', this,1)">Profile</button>
+        </div>
+        <div class="row"> 
+          <div class="tabcontent" id="Quizzes">
+            <h3 class="mt-3 text-center" style="padding-top:1%;color:#066EF7;float:none">Your Houses</h3>
+            <div class="row m-0 p-0">
+                <div class="col-lg-12 col-xl-12 col-md-12 ">
+                    <div id="cards"></div>
+                </div>
+            </div>
+          </div>
+          <div class="tabcontent" id="Profile">
+              <h3 class="mt-3 text-center" style="padding-top:1%;color:#066EF7;float:none;">Your Profile</h3>
+              <div id="userdata"></div>
+              <a href="/admin/updateprofile"><button class="btn btn-primary text-center" type="button">Update Profile</button></a>
+          </div>
+        </div>
+    </div>
+        
+        <div id="snackbar"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.9/jquery.jcarousel.min.js" integrity="sha512-5TU8T3STShZiLsdqDqiKnj0Z72ccPZpIDCuItxc2S7G3lyiwqiuLuDFVNsLQ7Hgu5f33DlZ2KAJspbn6NAXqnA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+        <script src="/js/dropdowns.js"></script>
+        <script src="/js/admindashboard.js"></script>
+</body>
+
+
+</html>
