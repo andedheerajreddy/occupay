@@ -274,9 +274,9 @@ router.get("/", (req, res) => {
         }
     })
 })
-router.patch("/updateprofile",(req, res)=>{
+router.patch("/updateprofile", (req, res) => {
     let userId = "60a69ac14a417f3f68819173";
-    itemLib.updateItemField({ _id: userId},{$set:req.body},userModel, (err, itemDetails) => {
+    itemLib.updateItemField({ _id: userId }, { $set: req.body }, userModel, (err, itemDetails) => {
         if (err) {
             res.status(404).json({
                 error: err
@@ -287,8 +287,8 @@ router.patch("/updateprofile",(req, res)=>{
             });
 
         }
-    }
-)})
+    })
+})
 router.patch("/accepthouse/:userId", (req, res) => {
     let userId = req.params.userId;
     let houseId = req.body.houseId;
@@ -317,6 +317,25 @@ router.patch("/accepthouse/:userId", (req, res) => {
 router.patch("/rejecthouse/:userId", (req, res) => {
     let userId = req.params.userId;
     let houseId = req.body.houseId;
-
+    itemLib.updateItemField({ _id: userId }, { $pull: { housesInterested: { $elemMatch: { "houseId": houseId } } } }, userModel, (err, data) => {
+        if (err) {
+            res.status(404).json({
+                message: err,
+            });
+        } else {
+            itemLib.updateItemField({ adminId: "" }, { $pull: { usersInterested: { $elemMatch: { "userId": userId } } } }, houseModel, (err, data1) => {
+                if (err) {
+                    res.status(404).json({
+                        message: err,
+                    });
+                } else {
+                    res.status(200).json({
+                        message: "Deleted",
+                        status: "Rejected"
+                    });
+                }
+            })
+        }
+    })
 })
 module.exports = router
