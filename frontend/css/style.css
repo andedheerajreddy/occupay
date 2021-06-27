@@ -766,7 +766,11 @@ label.valid:after {
     }
 }
 
-
+button.btn:focus,
+.btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
 /*# sourceMappingURL=style.css.map */
 
 #snackbar {

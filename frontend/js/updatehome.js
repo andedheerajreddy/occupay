@@ -149,11 +149,11 @@ function update() {
                         if (resultData.message == "updated") {
                             var x = document.getElementById("snackbar");
                             x.style.backgroundColor = 'green'
-                            x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Your House is Added Successfully`
+                            x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Your House is Updated Successfully`
                             x.className = "show";
                             setTimeout(function() {
                                 x.className = x.className.replace("show", "");
-                                window.location.href = '/dashboard';
+                                window.location.href = '/admin/dashboard';
 
                             }, 2000);
                         }
@@ -170,10 +170,44 @@ function update() {
                     }
                 });
 
-            },
-            error: function(err) {
-                alert("Error Occured: " + err);
-            }
-        });
+                },
+                error: function(err) {
+                    alert("Error Occured: " + err);
+                }
+            });
+        }
     }
+function filldata() {
+    $.ajax({
+        url: "/api/house/"+homeid,
+        method: "GET",
+        success: function(result) {
+           data=result.result;
+           document.getElementsByClassName("register")[0].value=data.houseName;
+           document.getElementsByClassName("register")[1].value=data.houseDescription;
+           document.getElementsByClassName("register")[2].value=data.address.Street;
+           document.getElementsByClassName("register")[3].value=data.address.state;
+           document.getElementsByClassName("register")[4].value=data.address.pincode;
+           document.getElementsByClassName("register")[5].value=data.address.City;
+           document.getElementsByClassName("register")[6].value=data.address.country;
+           document.getElementsByClassName("register")[7].value=data.cost.rentPerMonth;
+           document.getElementsByClassName("register")[8].value=data.cost.maintenance;
+           document.getElementsByClassName("register")[9].value=data.cost.advance;
+           document.getElementsByClassName("register")[10].value=data.preferred_tenant;
+           document.getElementsByClassName("register")[11].value=data.propertyAge;
+           document.getElementsByClassName("register")[12].value=data.property_type;
+           document.getElementsByClassName("register")[13].value=data.houseType;
+           document.getElementsByClassName("register")[14].value=data.parking;
+           document.getElementsByClassName("register")[15].value=data.balcony;
+           document.getElementsByClassName("register")[16].value=data.facing;
+           document.getElementsByClassName("register")[17].value=data.furnishing;
+        },
+        error: function(err) {
+            if (err) {
+                console.log(err);
+            }
+        }
+    });
+
 }
+filldata();

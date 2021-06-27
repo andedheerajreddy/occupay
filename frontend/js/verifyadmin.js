@@ -31,7 +31,7 @@ function verifymail() {
     if (c == 2) {
         $.ajax({
             type: "PATCH",
-            url: "/api/user/verifyEmail",
+            url: "/api/admin/verifyEmail",
             data: {
                 email: email,
                 verificationKey: passkey,
@@ -45,7 +45,7 @@ function verifymail() {
                     x.className = "show";
                     setTimeout(function() {
                         x.className = x.className.replace("show", "");
-                        window.location.href = "/login";
+                        window.location.href = "/login/organiser";
                     }, 2000);
                 } else if (resultData.message == "already verified") {
                     var x = document.getElementById("snackbar");
@@ -54,7 +54,7 @@ function verifymail() {
                     x.className = "show";
                     setTimeout(function() {
                         x.className = x.className.replace("show", "");
-                        window.location.href = "/login";
+                        window.location.href = "/login/organiser";
                     }, 2000);
                 } else {
 

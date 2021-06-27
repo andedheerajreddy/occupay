@@ -68,7 +68,25 @@ router.post("/resendVerificationEmail", async(req, res, next) => {
         })
     }
 });
-
+router.patch("/removehouse/:houseid",(req, res)=>{  
+     let userId = "60cdc02cd333591b4c72eba6"
+itemLib.updateItemField({ _id: userId }, { $pull: { wishlist: { houseId: req.params.houseid } } }, userModel, async(err, result) => {
+        if(err)
+        {
+            res.status(404).json({
+                message: "error occured",
+            });
+        }
+        else
+        {
+            res.status(200).json({
+                result: result,
+                message:"removed"
+                
+            });   
+        }
+    })
+})
 router.patch("/verifyEmail", async(req, res, next) => {
     console.log(req.body)
     const { verificationKey } = req.body;
@@ -260,34 +278,87 @@ router.post("/login", (req, res) => {
         }
     })
 })
-
-router.patch("/requesthouse/:houseId", (req, res) => {
-    let houseid = req.params.houseId
-        //need to be updated later
-    req.user = "60a76a519d3fa66024750a82"
-    itemLib.updateItemField({ _id: req.user }, { $push: { housesInterested: { houseId: houseid, status: "Pending" } } }, userModel, (err, result) => {
-        if (err) {
+router.get("/",(req, res)=>
+{
+    let userId = "60cdc02cd333591b4c72eba6"
+    itemLib.getItemByQuery({_id:userId},userModel,(err,result)=>
+    {
+        if(err)
+        {
             res.status(404).json({
-                message: err,
+                message: "error occured",
             });
-        } else { /////////
-            itemLib.updateItemField({ _id: req.params.houseId }, { $push: { usersInterested: { userId: req.user, status: "Pending" } } }, houseModel, (err, result1) => {
-                if (err) {
-                    res.status(404).json({
-                        message: err,
-                    });
-                } else {
-                    res.status(200).json({
-                        message: "Updated",
-                        status: "Pending"
-                    });
-                }
-            })
+        }
+        else
+        {
+            res.status(200).json({
+                result: result[0],
+            });   
         }
     })
 })
+router.patch("/updateprofile",(req, res)=>{
+    let userId = "60cdc02cd333591b4c72eba6";
+    itemLib.updateItemField({ _id: userId},{$set:req.body},userModel, (err, itemDetails) => {
+        if (err) {
+            res.status(404).json({
+                error: err
+            })
+        } else {
+            res.status(200).json({
+                message: "Updated",
+            });
 
+        }
+    }
+)})
+router.patch("/requesthouse/:houseId", (req, res) => {
+    let houseid = req.params.houseId
+    req.user = "60cdc02cd333591b4c72eba6"
+    itemLib.getItemByQuery({_id:req.user,"housesInterested.houseId": houseid },userModel,(err, item) => {
+        if(err)
+        {
+            return res.status(400).json({
+                message: "Some error",
+            });
+        }
+        else
+        {   console.log(item);
+            if(item.length>0)
+            {
+                return res.status(200).json({
+                    message: "Already existed",
+                });
+            }
+            else
+            {
+                itemLib.updateItemField({ _id: req.user }, { $push: { housesInterested: { houseId: houseid, status: "Pending" } } }, userModel, (err, result) => 
+                {
+                    if (err) {
+                        res.status(404).json({
+                            message: err,
+                        });
+                    } else { 
+                        itemLib.updateItemField({ _id: req.params.houseId }, { $push: { usersInterested: { userId: req.user, status: "Pending" } } }, houseModel, (err, result1) => {
+                            if (err) {
+                                res.status(404).json({
+                                    message: err,
+                                });
+                            } else {
+                                res.status(200).json({
+                                    message: "Updated",
+                                    status: "Pending"
+                                });
+                            }
+                        })
+                    }
+                })
+            }
+        }
 
+    })
+    
+})
 router.get("/wishlist", (req, res) => {
     const userId = "60cdc02cd333591b4c72eba6";
     let populateJson = {
