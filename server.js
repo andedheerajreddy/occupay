@@ -43,7 +43,12 @@ app.get("/register", (req, res) => {
 app.get("/dashboard", (req, res) => {
     res.render('dashboard', { title: "home" })
 })
-
+app.get("/about", (req, res) => {
+    res.render('about', { title: "home" })
+})
+app.get("/Contactus", (req, res) => {
+    res.render('Contact', { title: "home" })
+})
 
 app.use("/api", require("./backend/api/allapiroutes"))
 
