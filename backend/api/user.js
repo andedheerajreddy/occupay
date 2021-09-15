@@ -378,4 +378,23 @@ router.get("/wishlist", (req, res) => {
     })
 
 })
+
+router.get("/getacceptedusers",(req,res)=>{
+    const userId = "60cdc02cd333591b4c72eba6";
+    let populateJson = {
+        path: 'housesInterested',
+        populate: { path: 'houseId' }
+    }
+    itemLib.getItemByQueryWithPopulate({ _id: userId, isDeleted: false,"housesInterested.status": "Accepted" }, userModel, populateJson, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                message: "Error",
+            });
+        } else {
+            res.status(200).json({
+                result,
+            });
+        }
+    })
+})
 module.exports = router
