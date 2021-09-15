@@ -85,6 +85,9 @@ app.get("/signup/organiser", (req, res) => {
 app.get("/login/organiser", (req, res) => {
     res.render('adminlogin', { title: "home" })
 })
+app.get("/joinedhouses",(req, res) => {
+    res.render("joinedhouses",{ title: "home" })
+})
 app.use("/api", require("./backend/api/allapiroutes"))
 
 let PORT = process.env.PORT || 3000;
