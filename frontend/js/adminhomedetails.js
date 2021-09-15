@@ -1,6 +1,7 @@
 var RequestedUsers;
+let homeid;
 function filldata() {
-    const homeid = location.href.split('/').splice(-1)[0];
+    homeid = location.href.split('/').splice(-1)[0];
     $.ajax({
         url: "/api/house/" + homeid,
         method: "GET",
@@ -94,6 +95,8 @@ function fillrequested() {
     var code=`<div class="accordion" id="parent"  >`;
     for(let i=0;i<RequestedUsers.length;i++)
     {
+        if(RequestedUsers[i]["userId"]==undefined)continue;
+        let userid=RequestedUsers[i]["userId"]._id;
         code+=`
         <div class="accordion-item" style="width:100%;" >
                 <h2 class="accordion-header" id="heading${i+1}">
@@ -109,6 +112,9 @@ function fillrequested() {
         <div class="row">City:${RequestedUsers[i]["userId"].address.City}</div>
         <div class="row">State:${RequestedUsers[i]["userId"].address.state}</div>
         <div class="row">Pincode:${RequestedUsers[i]["userId"].address.pincode}</div>
+        <div class="row"><div class="col-1 m-0 p-0"><button class="btn btn-outline" onclick="acceptuser('${userid}')" >ok</button></div>
+        <div class="col-2  m-0 p-0"><input type="button" onclick="rejectuser('${userid}')" value="cancel"></div>
+        </div>
         </div>
         </div>
       </div>
@@ -118,4 +124,31 @@ function fillrequested() {
     code+='</div>';
     }
     $("#data").append(code);
+}
+function acceptuser(userid){
+    alert(userid);
+    alert(homeid);
+    $.ajax({
+        url: "/api/admin/accepthouse/" + userid,
+        method: "PATCH",
+        data:{
+            houseId:homeid
+        },
+        success: function(result) {
+alert(JSON.stringify(result));        }
+    });
+}
+
+function rejectuser(userid){
+    alert(userid);
+    alert(homeid);
+    $.ajax({
+        url: "/api/admin/rejecthouse/" + userid,
+        method: "PATCH",
+        data:{
+            houseId:homeid
+        },
+        success: function(result) {
+alert(JSON.stringify(result));        }
+    });
 }
