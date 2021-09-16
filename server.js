@@ -17,7 +17,12 @@ app.use(express.json());
 // });
 // app.use(cors());
 
+const Razorpay=require("razorpay");
 
+const razorpay=new Razorpay({
+    key_id:process.env.key_id,
+    key_secret:process.env.key_secret
+});
 const dbURI = process.env.dbURI;
 
 mongoose
@@ -30,6 +35,27 @@ mongoose
     .catch((err) => console.log(err));
 
 mongoose.Promise = global.Promise;
+app.post("/order",(req,res)=>
+{
+    var options = {
+        amount: 100,  
+        currency: "INR"
+      };
+      razorpay.orders.create(options, function(err, order) {
+        console.log(order,err);
+        res.json(order);
+      });
+});
+app.post("/is-order-complete",(req, res)=>
+{
+    razorpay.payments.fetch(req.body.razorpay_payment_id).then((doc)=> {
+        if(doc.status=="captured"){
+            res.send("Payment Successful!!")
+        }
+        else
+        res.redirect("/");
+    })
+});
 
 app.get("/", (req, res) => {
     res.render('home', { title: "home" })
@@ -87,6 +113,9 @@ app.get("/login/organiser", (req, res) => {
 })
 app.get("/joinedhouses",(req, res) => {
     res.render("joinedhouses",{ title: "home" })
+})
+app.get("/acceptedhouses", (req, res) => {
+    res.render('acceptedhouses', { title: "home" })
 })
 app.use("/api", require("./backend/api/allapiroutes"))
 

@@ -10,7 +10,7 @@ $(() => {
 
     var data = ``;
     $.ajax({
-        url: "/api/user/getjoinedhouses",
+        url: "/api/user/getacceptedusers",
         method: "GET",
         success: function(result1) {
             // result = result.result;
@@ -41,7 +41,7 @@ $(() => {
                                                 <hr class="m-0">
                 
                                                 <p>Property Age :<br> ${result.propertyAge}</p>
-                                                <button class="btn btn-outline-info" id="Details-${result._id}" onclick="Leave('${result._id}')" ">Leave</button>
+                                                <button class="btn btn-outline-info" id="Details-${result._id}" onclick="join(this)" ">Join</button>
 
                                             </div>
                                             <div class="col-6  pr-0">
@@ -52,7 +52,7 @@ $(() => {
                                                 <hr class="m-0">
                 
                                                 <p>Parking available :<br>${result.isParkingAvailable}</p>
-                                                <button class="btn btn-outline-info" id="Intrested-${result._id}" onclick="pay('${result._id}')" ">Pay Rent</button>
+                                                <button class="btn btn-outline-info" id="Intrested-${result._id}" onclick="reject('${result._id}')" ">Reject</button>
                 
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@ $(() => {
                         <hr class="m-0">
 
                         <p>Property Age :<br> ${result.propertyAge}</p>
-                        <button class="btn btn-outline-info" id="Details-${result._id}" onclick="Leave('${result._id}')" ">Leave</button>
+                        <button class="btn btn-outline-info" id="Details-${result._id}" onclick="join(this)" ">Join</button>
 
                     </div>
                     <div class="col-6  pr-0">
@@ -100,8 +100,10 @@ $(() => {
 
                         <p class="mb-1">Advance : <br>${result.cost.advance}</p>
                         <hr class="m-0">
+
                         <p>Parking available :<br>${result.isParkingAvailable}</p>
-                        <button class="btn btn-outline-info" id="Intrested-${result._id}" onclick="reject('${result._id}')" ">Pay Rent</button>
+                        <button class="btn btn-outline-info" id="Intrested-${result._id}" onclick="reject('${result._id}')" ">Reject</button>
+
                     </div>
                 </div>
 
