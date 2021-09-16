@@ -115,7 +115,7 @@ function signup() {
                     x.className = "show";
                     setTimeout(function() {
                         x.className = x.className.replace("show", "");
-                        window.location.href = '/verify';
+                        window.location.href = '/verifyadmin';
 
                     }, 2000);
                 }
