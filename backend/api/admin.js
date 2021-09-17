@@ -261,13 +261,13 @@ router.post("/login", (req, res) => {
 })
 
 
-router.get("/", (req, res) => {
+router.get("/",[checkAuthAdmin], (req, res) => {
     let populateJson = {
             path: 'houses',
             populate: { path: 'houseId' }
         }
         /////////////////////////to be replaced later with  req.user.userid///////////////
-    itemLib.getItemByQueryWithPopulate({ _id: '60a69a7f4a417f3f68819170', isDeleted: false }, adminModel, populateJson, (err, result) => {
+    itemLib.getItemByQueryWithPopulate({ _id: req.user.userId, isDeleted: false }, adminModel, populateJson, (err, result) => {
         if (err) {
             res.status(400).json({
                 message: "Error",
@@ -279,8 +279,8 @@ router.get("/", (req, res) => {
         }
     })
 })
-router.patch("/updateprofile", (req, res) => {
-    let userId = "60a69ac14a417f3f68819173";
+router.patch("/updateprofile",[checkAuthAdmin], (req, res) => {
+    let userId = req.user.userId
     itemLib.updateItemField({ _id: userId }, { $set: req.body }, userModel, (err, itemDetails) => {
         if (err) {
             res.status(404).json({
@@ -294,7 +294,7 @@ router.patch("/updateprofile", (req, res) => {
         }
     })
 })
-router.patch("/accepthouse/:userId", (req, res) => {
+router.patch("/accepthouse/:userId",[checkAuthAdmin], (req, res) => {
     let userId = req.params.userId;
     let houseId = req.body.houseId;
     itemLib.updateItemField({ _id: userId, "housesInterested.houseId": houseId }, { $set: { "housesInterested.$.status": "Accepted" } }, userModel, (err, data) => {
@@ -319,7 +319,7 @@ router.patch("/accepthouse/:userId", (req, res) => {
     })
 })
 
-router.patch("/rejecthouse/:userId", (req, res) => {
+router.patch("/rejecthouse/:userId",[checkAuthAdmin], (req, res) => {
     let userId = req.params.userId;
     let houseId = req.body.houseId;
     itemLib.updateItemField({ _id: userId }, { $pull: { housesInterested: { houseId: houseId} }}, userModel, (err, data) => {

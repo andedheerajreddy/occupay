@@ -21,8 +21,9 @@ $(() => {
         method: "GET",
         success: function(result1) {
             // result = result.result;
+            console.log(result1);
             result1 = result1.result[0].housesInterested;
-            //console.log(result);
+            
             for (let i = 0; i < result1.length; i++) {
                 let result=result1[i].houseId;
                 if(result==undefined) continue;

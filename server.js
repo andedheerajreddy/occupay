@@ -136,7 +136,7 @@ app.get("/updatehome/:id", (req, res) => {
 app.get("/wishlist", (req, res) => {
     res.render('wishlist', { title: "home" })
 })
-app.get("/updateprofile/", (req, res) => {
+app.get("/profile/", (req, res) => {
     res.render('updateprofile', { title: "home" })
 })
 app.get("/admin/updateprofile/", (req, res) => {
