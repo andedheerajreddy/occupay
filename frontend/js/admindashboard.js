@@ -167,10 +167,8 @@ function fillUserData() {
      <div class="row"><h4><label>Email</label> : ${UserData.email}</h4></div>
     <div class="row"><h4><label>Phone Number</label> :${UserData.mobileNumber}</h4></div>
     <div class="row"><h4><label> Street </label> : ${UserData.address.Street} </h4></div>
-    <div class="row"><h4><label> City </label> : ${UserData.address.city} </h4></div>
-    <div class="row"><h4><label> locality </label> : ${UserData.address.locality} </h4></div>
     <div class="row"><h4><label> Pincode </label> : ${UserData.address.pincode} </h4></div>
-    <div class="row"><h4><label> Pincode </label> : ${UserData.address.state} </h4></div>
+    <div class="row"><h4><label> State </label> : ${UserData.address.state} </h4></div>
     <div class="row"><h4><label> No of Houses </label> : ${UserData.houses.length} </h4></div>
    `
     $("#userdata").append(userdata);

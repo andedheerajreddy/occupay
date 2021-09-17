@@ -21,7 +21,7 @@ $(() => {
         method: "GET",
         success: function(result1) {
             // result = result.result;
-            console.log(result1);
+           
             result1 = result1.result[0].housesInterested;
             
             for (let i = 0; i < result1.length; i++) {
@@ -140,7 +140,6 @@ $(() => {
 var User=JSON.parse(localStorage.getItem('userDetails'));
 function reject(homeid){    
    let userid=User.userId
-    alert(homeid);
     $.ajax({
         url: "/api/admin/rejecthouse/" + userid,
         method: "PATCH",
@@ -148,9 +147,12 @@ function reject(homeid){
             houseId:homeid
         },
         success: function(result) {
-alert(JSON.stringify(result));        },
+            snackbar("Successfully Rejected !!",true);
+            location.reload();
+        },
 error: function(err) {
     if (err.responseJSON.message == "Unauthorized access") {
+        snackbar("Access Denied !!",false);
         location.href = "/"
     }
 }
