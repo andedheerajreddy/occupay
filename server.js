@@ -37,6 +37,7 @@ const itemLib = require("./backend/lib/itemlib");
 const houseModel = require("./backend/models/house");
 const adminModel = require("./backend/models/admin");
 const userModel = require("./backend/models/user");
+const checkauth = require("./backend/middleware/checkauth");
 app.post("/order",(req,res)=>
 {
     var options = {
@@ -48,11 +49,11 @@ app.post("/order",(req,res)=>
         res.json(order);
       });
 });
-app.post("/is-order-complete/:houseid",(req, res)=>
+app.post("/is-order-complete/:houseid",checkauth,(req, res)=>
 {
     razorpay.payments.fetch(req.body.razorpay_payment_id).then((doc)=> {
         if(doc.status=="captured"){
-            const userId = "60cdc02cd333591b4c72eba6";
+            const userId = req.user.userId
             const houseId=req.params.houseid;
             itemLib.updateItemField({ _id: houseId }, { $set: { "occupiedStatus": true,"currentUser":userId, usersInterested: []}}, houseModel, (err, data) => {
                 if (err) {
