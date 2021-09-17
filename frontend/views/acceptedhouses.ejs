@@ -39,7 +39,7 @@
         function join(e,houseid)
         {
             house_id=houseid;
-            uid=JSON.parse(localStorage.getItem(userDetails));
+            let uid=JSON.parse(localStorage.getItem("userDetails"));
             uid=uid.userId;
             axios.post("/order").then((info)=>
             {
