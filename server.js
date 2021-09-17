@@ -139,7 +139,7 @@ app.get("/wishlist", (req, res) => {
 app.get("/profile/", (req, res) => {
     res.render('updateprofile', { title: "home" })
 })
-app.get("/admin/updateprofile/", (req, res) => {
+app.get("/admin/profile/", (req, res) => {
     res.render('updateadminprofile', { title: "home" })
 })
 app.get("/signup/organiser", (req, res) => {

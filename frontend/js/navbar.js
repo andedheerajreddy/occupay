@@ -67,3 +67,15 @@ function logout()
     localStorage.clear();
     location.href="/";
 }
+var User=JSON.parse(localStorage.getItem("userDetails"));
+console.log(User)
+if(User.userType == "Admin")
+{
+    $("#profile").attr("href","/admin/profile");
+    $("#home").css("display","inline");
+    $("#join").css("display","none");
+    $("#accept").css("display","none");
+    $("#wish").css("display","none");
+
+
+}
