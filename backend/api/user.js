@@ -72,8 +72,8 @@ router.post("/resendVerificationEmail", async(req, res, next) => {
         })
     }
 });
-router.patch("/removehouse/:houseid",(req, res)=>{  
-     let userId = req.user.userId
+router.patch("/removehouse/:houseid",checkAuthUser,(req, res)=>{  
+     let userId = req.user.userId;
 itemLib.updateItemField({ _id: userId }, { $pull: { wishlist: { houseId: req.params.houseid } } }, userModel, async(err, result) => {
         if(err)
         {
@@ -282,7 +282,7 @@ router.post("/login", (req, res) => {
         }
     })
 })
-router.get("/",[checkAuthUser],(req, res)=>
+router.get("/",checkAuthUser,(req, res)=>
 {
     let userId =req.user.userId;
     itemLib.getItemByQuery({_id:userId},userModel,(err,result)=>
@@ -301,7 +301,7 @@ router.get("/",[checkAuthUser],(req, res)=>
         }
     })
 })
-router.patch("/updateprofile",[checkAuthUser],(req, res)=>{
+router.patch("/updateprofile",checkAuthUser,(req, res)=>{
     let userId = req.user.userId
     itemLib.updateItemField({ _id: userId},{$set:req.body},userModel, (err, itemDetails) => {
         if (err) {
@@ -316,7 +316,7 @@ router.patch("/updateprofile",[checkAuthUser],(req, res)=>{
         }
     }
 )})
-router.patch("/requesthouse/:houseId", (req, res) => {
+router.patch("/requesthouse/:houseId",checkAuthUser, (req, res) => {
     let houseid = req.params.houseId
     let userId = req.user.userId
     itemLib.getItemByQuery({_id:userId,"housesInterested.houseId": houseid },userModel,(err, item) => {
@@ -363,7 +363,7 @@ router.patch("/requesthouse/:houseId", (req, res) => {
     })
     
 })
-router.get("/wishlist", [checkAuthUser],(req, res) => {
+router.get("/wishlist", checkAuthUser,(req, res) => {
     const userId = req.user.userId
     let populateJson = {
         path: 'wishlist',
@@ -383,7 +383,7 @@ router.get("/wishlist", [checkAuthUser],(req, res) => {
 
 })
 
-router.get("/getacceptedusers",[checkAuthUser],(req,res)=>{
+router.get("/getacceptedusers",checkAuthUser,(req,res)=>{
     const userId = req.user.userId
     let populateJson = {
         path: 'housesInterested',
@@ -402,7 +402,7 @@ router.get("/getacceptedusers",[checkAuthUser],(req,res)=>{
     })
 })
 
-router.get("/getjoinedhouses",[checkAuthUser],checkAuthUser,(req,res)=>{
+router.get("/getjoinedhouses",checkAuthUser,(req,res)=>{
     const userId = req.user.userId;
     let populateJson = {
         path: 'housesJoined',
@@ -421,7 +421,7 @@ router.get("/getjoinedhouses",[checkAuthUser],checkAuthUser,(req,res)=>{
     })
 })
 
-router.patch("/leavehouse/:userId", (req, res) => {
+router.patch("/leavehouse/:userId",checkAuthUser, (req, res) => {
     let userId = req.params.userId;
     let houseId = req.body.houseId;
     itemLib.updateItemField({ _id: userId }, { $pull: { housesJoined: { houseId: houseId} }}, userModel, (err, data) => {
