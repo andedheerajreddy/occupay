@@ -6,7 +6,7 @@ if (!localStorage.token)
     location.href = '/'
 
 var RequestedUsers;
-let homeid;
+var homeid;
 function filldata() {
     homeid = location.href.split('/').splice(-1)[0];
     $.ajax({
@@ -19,6 +19,7 @@ function filldata() {
             var code1 = ``;
             var code2 = ``;
             fillrequested();
+            filldata1();
             let l = [
                 ['House Name', data['houseName']],
                 ['House Type', data['houseType']],
@@ -76,10 +77,21 @@ function filldata() {
 filldata();
 function openPage(pageName, elmnt, id) {
     var i, tabcontent, tablinks;
-    if (id == 1) {
+    if (id == 1) 
+    {
         document.getElementById("0").style.borderBottomColor = "white";
-    } else 
+        document.getElementById("2").style.borderBottomColor = "white";
+    } 
+    else if(id==2)
+    {
         document.getElementById("1").style.borderBottomColor = "white";
+        document.getElementById("0").style.borderBottomColor = "white";
+    }
+    else
+    {
+            document.getElementById("1").style.borderBottomColor = "white";
+            document.getElementById("2").style.borderBottomColor = "white";
+    }
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
@@ -115,8 +127,8 @@ function fillrequested() {
         <div class="row">City:${RequestedUsers[i]["userId"].address.City}</div>
         <div class="row">State:${RequestedUsers[i]["userId"].address.state}</div>
         <div class="row">Pincode:${RequestedUsers[i]["userId"].address.pincode}</div>
-        <div class="row"><div class="col-1 m-0 p-0"><button class="btn btn-outline" onclick="acceptuser('${userid}')" >ok</button></div>
-        <div class="col-2  m-0 p-0"><input type="button" onclick="rejectuser('${userid}')" value="cancel"></div>
+        <div class="row"><div class="col-1 m-0 p-0"><button class="btn btn-success" onclick="acceptuser('${userid}')" ><i class="fas fa-check"></i></button></div>
+        <div class="col-2  m-0 p-0"><button type="button" class="btn btn-danger" onclick="rejectuser('${userid}')"><i class="fas fa-times"></i></button></div>
         </div>
         </div>
         </div>
@@ -129,8 +141,7 @@ function fillrequested() {
     $("#data").append(code);
 }
 function acceptuser(userid){
-    alert(userid);
-    alert(homeid);
+    
     $.ajax({
         url: "/api/admin/accepthouse/" + userid,
         method: "PATCH",
@@ -143,8 +154,6 @@ alert(JSON.stringify(result));        }
 }
 
 function rejectuser(userid){
-    alert(userid);
-    alert(homeid);
     $.ajax({
         url: "/api/admin/rejecthouse/" + userid,
         method: "PATCH",
@@ -154,4 +163,33 @@ function rejectuser(userid){
         success: function(result) {
 alert(JSON.stringify(result));        }
     });
+}
+function filldata1()
+{
+ 
+    $.ajax({
+        url: "/api/house/joineduser/" + homeid,
+        method: "GET",
+        success: function(result) {
+            result=result.result;
+            console.log(result);
+            let UserData=result.currentUser;
+            let userdata = `
+            <div class="row"><h4><label> Name </label> : ${UserData.name} </h4></div>
+            <div class="row"><h4><label>Email</label> : ${UserData.email}</h4></div>
+           <div class="row"><h4><label>Phone Number</label> :${UserData.mobileNumber}</h4></div>
+           <div class="row"><h4><label> Street </label> : ${UserData.address.Street} </h4></div>
+           <div class="row"><h4><label> City </label> : ${UserData.address.City} </h4></div>
+           <div class="row"><h4><label> Pincode </label> : ${UserData.address.pincode} </h4></div>
+           <div class="row"><h4><label> State </label> : ${UserData.address.state} </h4></div>
+          `
+          $("#data1").html(userdata);
+        
+
+        },
+        error:function(error) {
+            alert(error);
+        }
+    })
+
 }

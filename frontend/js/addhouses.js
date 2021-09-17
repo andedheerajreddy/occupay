@@ -162,7 +162,7 @@ function signup() {
                                 x.className = "show";
                                 setTimeout(function() {
                                     x.className = x.className.replace("show", "");
-                                    window.location.href = '/dashboard';
+                                    window.location.href = '/admin/dashboard';
 
                                 }, 2000);
                             }

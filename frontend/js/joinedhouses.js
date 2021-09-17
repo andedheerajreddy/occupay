@@ -131,7 +131,8 @@ $(() => {
 })
 
 function Leave(homeid){
-    let userid="60cdc02cd333591b4c72eba6";
+    var User=JSON.parse(localStorage.getItem('userDetails'));
+    let userid=User.userId;
     alert(homeid);
     $.ajax({
         url: "/api/user/leavehouse/" + userid,

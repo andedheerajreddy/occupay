@@ -20,8 +20,9 @@
     <%- include('partials/nav') %>
     <div class="container">
         <div class="row tabs mt-2">
-          <button class="btn col-6" id="0" type="button" style="background-color: white !important;" onclick="openPage('Quizzes', this,0)">Your Houses Details</button>
-          <button class="btn col-6" id="1" type="button" style="background-color: white !important;"  onclick="openPage('Profile', this,1)">Requested Users</button>
+          <button class="btn col-4" id="0" type="button" style="background-color: white !important;" onclick="openPage('Quizzes', this,0)">Your Houses Details</button>
+          <button class="btn col-4" id="1" type="button" style="background-color: white !important;"  onclick="openPage('Profile', this,1)">Requested Users</button>
+          <button class="btn col-4" id="2" type="button" style="background-color: white !important;" onclick="openPage('joined', this,2)">Joined User</button>
         </div>
         <div class="row"> 
           <div class="tabcontent" id="Quizzes">
@@ -46,11 +47,17 @@
             </div>
             </div>
           <div class="tabcontent" id="Profile">
-              <h2 class="text-center mt-2 ">Requested Users</h2>
+              <h2 class="text-center mt-5 mb-2 ">Requested Users</h2>
                 <div id="data">
 
                 </div>
           </div>
+          <div class="tabcontent" id="joined">
+            <h2 class="text-center mt-5 mb-5 ">Joined User</h2>
+              <div id="data1">
+
+              </div>
+        </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
