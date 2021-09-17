@@ -64,6 +64,9 @@ function verifymail() {
                 if (err.responseJSON.message == "Unauthorized access") {
                     location.href = "/"
                 }
+                else{
+                    snackbar("INVALID CREDENTIALS!!")
+                }
             }
         });
     }
