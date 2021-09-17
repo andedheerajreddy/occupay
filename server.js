@@ -74,7 +74,7 @@ app.post("/is-order-complete/:houseid/:uid",(req, res)=>
                                     });
                                 }
                                 else{
-                                    res.send(req.params.houseid);
+                                    res.redirect("/success");
 
                                 }
                             });
@@ -92,7 +92,7 @@ app.post("/is-order-complete/:houseid/:uid",(req, res)=>
 
 app.post("/is-order-completed",(req, res)=>
 {
-    res.send("payment successful");
+    res.redirect("/success");
 });
 
 app.get("/", (req, res) => {
@@ -154,6 +154,9 @@ app.get("/joinedhouses",(req, res) => {
 })
 app.get("/acceptedhouses", (req, res) => {
     res.render('acceptedhouses', { title: "home" })
+})
+app.get("/success", (req, res) => {
+    res.render('success', { title: "home" })
 })
 app.use("/api", require("./backend/api/allapiroutes"))
 

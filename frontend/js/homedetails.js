@@ -86,9 +86,12 @@ function request()
             if(result.message=="Updated")
             {
                 snackbar("Successfully Requested !",true);
+                location.href="/dashboard";
             }
             else
-                snackbar("Already Requsted",false);
+                snackbar("Already Requested",false);
+                location.href="/dashboard";
+
         },
         error: function(err) {
             if (err.responseJSON.message == "Unauthorized access") {

@@ -4,7 +4,14 @@ $.ajaxSetup({
 
 if (!localStorage.token)
     location.href = '/'
-
+function snackbar(mssg,success) {
+    var x = document.getElementById("snackbar");
+    if(success)
+    x.style.backgroundColor = 'green';
+    x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ${mssg}`
+    x.className = "show";
+    setTimeout(function() { x.className = x.className.replace("show", ""); }, 2000);
+}
 var RequestedUsers;
 var homeid;
 function filldata() {
@@ -69,6 +76,7 @@ function filldata() {
         },
         error: function(err) {
             if (err.responseJSON.message == "Unauthorized access") {
+                snackbar("Access denied",false);
                 location.href = "/"
             }
         }
@@ -149,7 +157,12 @@ function acceptuser(userid){
             houseId:homeid
         },
         success: function(result) {
-alert(JSON.stringify(result));        }
+            snackbar("Successfully Accepted !",true);
+            location.reload();
+            },
+        error: function(error) {
+            snackbar(error,false);
+        }
     });
 }
 
@@ -161,7 +174,13 @@ function rejectuser(userid){
             houseId:homeid
         },
         success: function(result) {
-alert(JSON.stringify(result));        }
+            snackbar("Succesfully Rejected",true);
+            location.reload();
+        },
+        error: function(error) {
+            snackbar(error,false);
+        }
+
     });
 }
 function filldata1()
