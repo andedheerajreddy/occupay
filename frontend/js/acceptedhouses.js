@@ -7,6 +7,13 @@ function snackbar(mssg,success) {
     setTimeout(function() { x.className = x.className.replace("show", ""); }, 2000);
 }
 $(() => {
+    $.ajaxSetup({
+        headers: { 'token': localStorage.token }
+    });
+    
+    if (!localStorage.token)
+        location.href = '/'
+    
 
     var data = ``;
     $.ajax({
@@ -19,6 +26,7 @@ $(() => {
             for (let i = 0; i < result1.length; i++) {
                 let result=result1[i].houseId;
                 if(result==undefined) continue;
+                if(result1[i].status!="Accepted") continue;
                 data += ` <div class="row mt-2">
                   <div class="col-6 m-0 p-0">
                     <div class="card m-0 p-0" style="width: 32rem ;margin: 0%;">
@@ -41,7 +49,7 @@ $(() => {
                                                 <hr class="m-0">
                 
                                                 <p>Property Age :<br> ${result.propertyAge}</p>
-                                                <button class="btn btn-outline-info" id="Details-${result._id}" onclick="join(this)" ">Join</button>
+                                                <button class="btn btn-outline-info" id="Details-${result._id}" onclick="join(this,'${result._id}')" ">Join</button>
 
                                             </div>
                                             <div class="col-6  pr-0">
@@ -67,9 +75,12 @@ $(() => {
                 i++;
                 if(i<result1.length){
                 result=result1[i].houseId;
-             while(result==undefined) {i++;
+             while(result==undefined || result1[i].status!="Accepted") {i++;
                 result=result1[i].houseId;
-            };}
+            };
+        
+        }
+
 
                 if (i < result1.length) {
                     data += ` <div class="card m-0 p-0" style="width: 32rem ;margin: 0%;">
@@ -91,7 +102,7 @@ $(() => {
                         <hr class="m-0">
 
                         <p>Property Age :<br> ${result.propertyAge}</p>
-                        <button class="btn btn-outline-info" id="Details-${result._id}" onclick="join(this)" ">Join</button>
+                        <button class="btn btn-outline-info" id="Details-${result._id}" onclick="join(this,'${result._id}')" ">Join</button>
 
                     </div>
                     <div class="col-6  pr-0">
@@ -120,3 +131,16 @@ $(() => {
         }
     })
 })
+function reject(homeid){    
+   let userid="60cdc02cd333591b4c72eba6";
+    alert(homeid);
+    $.ajax({
+        url: "/api/admin/rejecthouse/" + userid,
+        method: "PATCH",
+        data:{
+            houseId:homeid
+        },
+        success: function(result) {
+alert(JSON.stringify(result));        }
+    });
+}

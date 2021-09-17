@@ -9,6 +9,10 @@ const adminModel = require("../models/admin");
 const userModel = require("../models/user");
 var multer = require('multer');
 
+const checkAuth = require("../middleware/checkauth");
+const checkAuthAdmin = require("../middleware/checkauthadmin");
+const checkAuthUser = require("../middleware/checkauthuser");
+
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, __dirname + '/../../frontend/uploads')

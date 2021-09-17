@@ -13,9 +13,13 @@ const userModel = require("../models/user");
 const admin = require("../models/admin");
 const { Router } = require("express");
 
+const checkAuth = require("../middleware/checkauth");
+const checkAuthAdmin = require("../middleware/checkauthadmin");
+const checkAuthUser = require("../middleware/checkauthuser");
 const shortid = require("shortid");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SendgridAPIKey);
+
 
 router.post("/resendVerificationEmail", async(req, res, next) => {
     const { email } = req.body;
@@ -394,6 +398,50 @@ router.get("/getacceptedusers",(req,res)=>{
             res.status(200).json({
                 result,
             });
+        }
+    })
+})
+
+router.get("/getjoinedhouses",checkAuthUser,(req,res)=>{
+    const userId = req.user.userId;
+    let populateJson = {
+        path: 'housesJoined',
+        populate: { path: 'houseId' }
+    }
+    itemLib.getItemByQueryWithPopulate({ _id: userId, isDeleted: false}, userModel, populateJson, (err, result) => {
+        if (err) {
+            res.status(400).json({
+                message: "Error",
+            });
+        } else {
+            res.status(200).json({
+                result,
+            });
+        }
+    })
+})
+
+router.patch("/leavehouse/:userId", (req, res) => {
+    let userId = req.params.userId;
+    let houseId = req.body.houseId;
+    itemLib.updateItemField({ _id: userId }, { $pull: { housesJoined: { houseId: houseId} }}, userModel, (err, data) => {
+        if (err) {
+            res.status(404).json({
+                message: err,
+            });
+        } else {
+            itemLib.updateItemField({_id:houseId },{ $set: { occupiedStatus: false,currentUser:null } }, houseModel, (err, data1) => {
+                if (err) {
+                    res.status(404).json({
+                        message: err,
+                    });
+                } else {
+                    res.status(200).json({
+                        message: "Deleted",
+                        status: "Rejected"
+                    });
+                }
+            })
         }
     })
 })

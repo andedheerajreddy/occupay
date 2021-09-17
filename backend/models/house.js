@@ -55,7 +55,8 @@ const houseSchema = mongoose.Schema({
         userId: { type: mongoose.Schema.Types.ObjectID, ref: "User" },
         vacateDate: { type: Date }
     }],
-    isDeleted: { type: Boolean, default: false }
+    isDeleted: { type: Boolean, default: false },
+    currentUser:{ type: mongoose.Schema.Types.ObjectID, ref: "User" }
 
 
 })

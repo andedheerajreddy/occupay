@@ -1,3 +1,10 @@
+$.ajaxSetup({
+    headers: { 'token': localStorage.token }
+});
+
+if (!localStorage.token)
+    location.href = '/'
+
 var homeid = location.href.split('/').splice(-1)[0];
 function snackbar(mssg,success) {
     var x = document.getElementById("snackbar");

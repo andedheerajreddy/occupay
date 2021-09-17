@@ -1,3 +1,10 @@
+$.ajaxSetup({
+    headers: { 'token': localStorage.token }
+});
+
+if (!localStorage.token)
+    location.href = '/'
+
 function snackbar(mssg) {
     var x = document.getElementById("snackbar");
     x.innerHTML = `<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ${mssg}`

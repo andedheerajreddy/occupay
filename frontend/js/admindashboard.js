@@ -8,6 +8,13 @@ function snackbar(mssg,success) {
     setTimeout(function() { x.className = x.className.replace("show", ""); }, 2000);
 }
 $(() => {
+    $.ajaxSetup({
+        headers: { 'token': localStorage.token }
+    });
+    
+    if (!localStorage.token)
+        location.href = '/'
+    
     let s = `<option value="" >Select state</option>`
     for (let i = 0; i < states.length; i++) {
         s += `   <option value="${states[i]}">${states[i]}</option>`
@@ -99,7 +106,7 @@ $(() => {
                         <hr class="m-0">
 
                         <p>Property Age :<br> ${result[i]["houseId"].propertyAge}</p>
-                        <a href="/homadmine/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
+                        <a href="/adminhome/${result[i]["houseId"]._id}" class="btn btn-outline-info " id="Details-${result[i]["houseId"]._id}">View details</a>
 
                     </div>
                     <div class="col-6  pr-0">

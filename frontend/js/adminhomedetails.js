@@ -1,3 +1,10 @@
+$.ajaxSetup({
+    headers: { 'token': localStorage.token }
+});
+
+if (!localStorage.token)
+    location.href = '/'
+
 var RequestedUsers;
 let homeid;
 function filldata() {

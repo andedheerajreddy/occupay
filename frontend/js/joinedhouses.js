@@ -7,14 +7,20 @@ function snackbar(mssg,success) {
     setTimeout(function() { x.className = x.className.replace("show", ""); }, 2000);
 }
 $(() => {
-
+    $.ajaxSetup({
+        headers: { 'token': localStorage.token }
+    });
+    
+    if (!localStorage.token)
+        location.href = '/'
+    
     var data = ``;
     $.ajax({
         url: "/api/user/getjoinedhouses",
         method: "GET",
         success: function(result1) {
             // result = result.result;
-            result1 = result1.result[0].housesInterested;
+            result1 = result1.result[0].housesJoined;
             //console.log(result);
             for (let i = 0; i < result1.length; i++) {
                 let result=result1[i].houseId;
@@ -118,3 +124,17 @@ $(() => {
         }
     })
 })
+
+function Leave(homeid){
+    let userid="60cdc02cd333591b4c72eba6";
+    alert(homeid);
+    $.ajax({
+        url: "/api/user/leavehouse/" + userid,
+        method: "PATCH",
+        data:{
+            houseId:homeid
+        },
+        success: function(result) {
+alert(JSON.stringify(result));        }
+    });
+}

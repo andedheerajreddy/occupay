@@ -1,3 +1,10 @@
+$.ajaxSetup({
+    headers: { 'token': localStorage.token }
+});
+
+if (!localStorage.token)
+    location.href = '/'
+
 function snackbar(mssg,success) {
     var x = document.getElementById("snackbar");
     if(success)

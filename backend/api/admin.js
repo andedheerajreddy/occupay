@@ -14,6 +14,11 @@ const emailTemplates = require("../emails/email");
 const shortid = require("shortid");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SendgridAPIKey);
+
+const checkAuth = require("../middleware/checkauth");
+const checkAuthAdmin = require("../middleware/checkauthadmin");
+const checkAuthUser = require("../middleware/checkauthuser");
+
 router.post("/resendVerificationEmail", async(req, res, next) => {
     const { email } = req.body;
 
@@ -317,13 +322,13 @@ router.patch("/accepthouse/:userId", (req, res) => {
 router.patch("/rejecthouse/:userId", (req, res) => {
     let userId = req.params.userId;
     let houseId = req.body.houseId;
-    itemLib.updateItemField({ _id: userId },  { housesInterested:{ $pull: { $elemMatch: { "houseId": houseId } } } }, userModel, (err, data) => {
+    itemLib.updateItemField({ _id: userId }, { $pull: { housesInterested: { houseId: houseId} }}, userModel, (err, data) => {
         if (err) {
             res.status(404).json({
                 message: err,
             });
         } else {
-            itemLib.updateItemField({_id:houseId },  { usersInterested:{ $pull: { $elemMatch: { "userId": userId } } } }, houseModel, (err, data1) => {
+            itemLib.updateItemField({_id:houseId },{ $pull:  { usersInterested: { userId:userId } } }, houseModel, (err, data1) => {
                 if (err) {
                     res.status(404).json({
                         message: err,

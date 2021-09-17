@@ -19,7 +19,7 @@
 
 <body>
     <%- include('partials/nav') %>
-        <div class="row m-0 p-0">
+        <div class="row m-0 p-0 mt-4 ml-4">
             <div class="col-lg-9 col-xl-10 col-md-8 ">
                 <div id="cards"></div>
             </div>
@@ -43,7 +43,7 @@
             "description": "Test Transaction",
             "image": "https://example.com/your_logo",
             "order_id": info.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            "callback_url": "/is-order-complete",
+            "callback_url": "/is-order-completed",
             "theme": {
                 "color": "#3399cc"
             }

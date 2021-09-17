@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 var path = require('path');
-
 const app = express();
 app.set('views', path.join(__dirname, 'frontend', 'views'));
 app.set('view engine', 'ejs');
@@ -33,8 +32,11 @@ mongoose
     })
     .then(() => console.log("Database Connected"))
     .catch((err) => console.log(err));
-
 mongoose.Promise = global.Promise;
+const itemLib = require("./backend/lib/itemlib");
+const houseModel = require("./backend/models/house");
+const adminModel = require("./backend/models/admin");
+const userModel = require("./backend/models/user");
 app.post("/order",(req,res)=>
 {
     var options = {
@@ -46,15 +48,50 @@ app.post("/order",(req,res)=>
         res.json(order);
       });
 });
-app.post("/is-order-complete",(req, res)=>
+app.post("/is-order-complete/:houseid",(req, res)=>
 {
     razorpay.payments.fetch(req.body.razorpay_payment_id).then((doc)=> {
         if(doc.status=="captured"){
-            res.send("Payment Successful!!")
+            const userId = "60cdc02cd333591b4c72eba6";
+            const houseId=req.params.houseid;
+            itemLib.updateItemField({ _id: houseId }, { $set: { "occupiedStatus": true,"currentUser":userId, usersInterested: []}}, houseModel, (err, data) => {
+                if (err) {
+                    res.status(404).json({
+                        message: err,
+                    });
+                } else {
+                    itemLib.updateItemField({ _id:userId }, { $pull: { housesInterested: { houseId: houseId} }}, userModel, (err, data1) => {
+                        if (err) {
+                            res.status(404).json({
+                                message: err,
+                            });
+                        } else {
+                            itemLib.updateItemField({ _id:userId }, { $push: { housesJoined: { houseId: houseId } }}, userModel, (err, data1) => {
+                                if (err) {
+                                    res.status(404).json({
+                                        message: err,
+                                    });
+                                }
+                                else{
+                                    res.send(req.params.houseid);
+
+                                }
+                            });
+                           
+
+                        }
+                    })
+                }
+            })
         }
         else
         res.redirect("/");
     })
+});
+
+app.post("/is-order-completed",(req, res)=>
+{
+    res.send("payment successful");
 });
 
 app.get("/", (req, res) => {

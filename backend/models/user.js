@@ -43,6 +43,13 @@ const userSchema = mongoose.Schema({
     token: {
         type: String,
     },
+    housesJoined:[
+        {
+            houseId: { type: mongoose.Schema.Types.ObjectID, ref: "House" }
+    
+        }
+    ]
+    ,
     passResetKey: { type: String },
     passKeyExpires: { type: Number },
     verificationKey: { type: String },
