@@ -62,3 +62,8 @@ function handleSmallScreens() {
 }
 
 handleSmallScreens()
+function logout()
+{
+    localStorage.clear();
+    location.href="/";
+}
