@@ -15,13 +15,15 @@
 
         <div class="navbar-menu" id="open-navbar1">
             <ul class="navbar-nav">
-                <li><a href="/wishlist">Wishlist</a></li>
-                <li><a href="/acceptedhouses">Accepted Houses</a></li>
-                <li><a href="/joinedhouses">Joined Houses</a></li>
-                <li><a href="/profile">Profile</a></li>
-                <li><button class="btn btn-primary" onclick="logout()">Logout</></li>
+                <li id="wish"><a href="/wishlist">Wishlist</a></li>
+                <li id="accept"><a href="/acceptedhouses">Accepted Houses</a></li>
+                <li id="join"><a href="/joinedhouses">Joined Houses</a></li>
+                <li id="home" style="display: none;"><a   href="/addhome">Add Houses</a></li>
+                <li><a id="profile" href="/profile">Profile</a></li>
+                <li><button class="btn btn-primary" onclick="logout()">Logout</li></li>
             </ul>
         </div>
     </div>
 </nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/js/navbar.js"></script>

@@ -41,7 +41,7 @@ function login() {
                 if (resultData.message == "Auth successful") {
                     localStorage.setItem("userDetails", JSON.stringify(resultData.userDetails));
                     localStorage.setItem("token", resultData.token);
-                    window.location.href = "/dashboard"
+                    window.location.href = "/admin/dashboard"
                 }
             }, //sucess
             error: function(resultData) {
