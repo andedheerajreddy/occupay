@@ -114,6 +114,11 @@ $(() => {
 
             }
             $("#cards").html(data)
+        },
+        error: function(err) {
+            if (err.responseJSON.message == "Unauthorized access") {
+                location.href = "/"
+            }
         }
     })
 })
@@ -128,6 +133,10 @@ function remove(houseid)
             console.log(result);
             location.reload();
         },
-        error:function(error) {console.log(error);}
+        error: function(err) {
+            if (err.responseJSON.message == "Unauthorized access") {
+                location.href = "/"
+            }
+        }
     });
 }

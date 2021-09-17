@@ -51,8 +51,8 @@ function filldata()
             document.getElementsByClassName("register")[6].value=data.address.pincode;
         },
         error: function(err) {
-            if (err) {
-                console.log(err);
+            if (err.responseJSON.message == "Unauthorized access") {
+                location.href = "/"
             }
         }
     });
@@ -116,8 +116,10 @@ function update()
                 }
             }, 
             error: function(err) {
-                        snackbar("error");
-                } //error
+                if (err.responseJSON.message == "Unauthorized access") {
+                    location.href = "/"
+                }
+            }
         });
     }   
 }

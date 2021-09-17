@@ -129,6 +129,11 @@ $(() => {
 
             }
             $("#cards").html(data)
+        },
+        error: function(err) {
+            if (err.responseJSON.message == "Unauthorized access") {
+                location.href = "/"
+            }
         }
     })
 })
@@ -276,7 +281,9 @@ function filter() {
 
         },
         error: function(err) {
-            console.log(err)
+            if (err.responseJSON.message == "Unauthorized access") {
+                location.href = "/"
+            }
         }
     })
 }
@@ -295,10 +302,8 @@ function add(id)
             snackbar("Succesfuly Added to Wishlist !",true);
         },
         error: function(err) {
-            if (err) {
-                console.log(err);
-                snackbar("Failed ! Something Went Wrong !",false)
-
+            if (err.responseJSON.message == "Unauthorized access") {
+                location.href = "/"
             }
         }
     });

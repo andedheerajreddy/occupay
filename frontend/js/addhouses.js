@@ -181,7 +181,9 @@ function signup() {
 
                 },
                 error: function(err) {
-                    alert("Error Occured: " + err);
+                    if (err.responseJSON.message == "Unauthorized access") {
+                        location.href = "/"
+                    }
                 }
             });
         }

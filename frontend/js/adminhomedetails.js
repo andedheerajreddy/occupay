@@ -68,11 +68,7 @@ function filldata() {
         },
         error: function(err) {
             if (err.responseJSON.message == "Unauthorized access") {
-                location.href = "/admin/dashboard"
-            } else {
-
-                console.log(err);
-                location.href = "/admin/dashboard" 
+                location.href = "/"
             }
         }
     });

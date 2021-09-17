@@ -44,8 +44,10 @@ function login() {
                     window.location.href = "/dashboard"
                 }
             }, //sucess
-            error: function(resultData) {
-                snackbar("INVALID CREDENTIALS!!")
+            error: function(err) {
+                if (err.responseJSON.message == "Unauthorized access") {
+                    location.href = "/"
+                }
             }
         });
     }

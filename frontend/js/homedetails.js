@@ -71,11 +71,7 @@ function filldata() {
         },
         error: function(err) {
             if (err.responseJSON.message == "Unauthorized access") {
-                location.href = "/dashboard"
-            } else {
-
-                console.log(err);
-                location.href = "/dashboard" //change this url ....
+                location.href = "/"
             }
         }
     });
@@ -95,9 +91,8 @@ function request()
                 snackbar("Already Requsted",false);
         },
         error: function(err) {
-            if (err) {
-                console.log(err);
-                snackbar("Error ",false);
+            if (err.responseJSON.message == "Unauthorized access") {
+                location.href = "/"
             }
         }
     });

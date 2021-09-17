@@ -132,7 +132,13 @@ $(() => {
 
             }
             $("#cards").html(data)
+        },
+        error: function(err) {
+            if (err.responseJSON.message == "Unauthorized access") {
+                location.href = "/"
+            }
         }
+
     })
 })
 function openPage(pageName, elmnt, id) {

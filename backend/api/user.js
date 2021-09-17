@@ -316,7 +316,7 @@ router.patch("/updateprofile",checkAuthUser,(req, res)=>{
         }
     }
 )})
-router.patch("/requesthouse/:houseId",checkAuthUser, (req, res) => {
+router.patch("/requesthouse/:houseId",checkAuth, (req, res) => {
     let houseid = req.params.houseId
     let userId = req.user.userId
     itemLib.getItemByQuery({_id:userId,"housesInterested.houseId": houseid },userModel,(err, item) => {
@@ -336,14 +336,14 @@ router.patch("/requesthouse/:houseId",checkAuthUser, (req, res) => {
             }
             else
             {
-                itemLib.updateItemField({ _id: req.user }, { $push: { housesInterested: { houseId: houseid, status: "Pending" } } }, userModel, (err, result) => 
+                itemLib.updateItemField({ _id: req.user.userId }, { $push: { housesInterested: { houseId: houseid, status: "Pending" } } }, userModel, (err, result) => 
                 {
                     if (err) {
                         res.status(404).json({
                             message: err,
                         });
                     } else { 
-                        itemLib.updateItemField({ _id: req.params.houseId }, { $push: { usersInterested: { userId: req.user, status: "Pending" } } }, houseModel, (err, result1) => {
+                        itemLib.updateItemField({ _id: houseid }, { $push: { usersInterested: { userId: req.user.userId, status: "Pending" } } }, houseModel, (err, result1) => {
                             if (err) {
                                 res.status(404).json({
                                     message: err,
