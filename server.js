@@ -49,7 +49,7 @@ app.post("/order",(req,res)=>
         res.json(order);
       });
 });
-app.post("/is-order-complete/:houseid/:uid",checkauth,(req, res)=>
+app.post("/is-order-complete/:houseid/:uid",(req, res)=>
 {
     razorpay.payments.fetch(req.body.razorpay_payment_id).then((doc)=> {
         if(doc.status=="captured"){
