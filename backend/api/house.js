@@ -184,5 +184,19 @@ router.get("/:houseId", checkAuth,(req, res) => {
         }
     })
 })
-
+router.get("/joineduser/:houseId", checkAuth,(req, res) => {
+    let populateJson = {
+        path: 'currentUser'}
+    itemLib.getItemByQueryWithPopulate({ _id: req.params.houseId, isDeleted: false }, houseModel, populateJson, (err, result) => {
+        if (err || result.length <= 0) {
+            res.status(400).json({
+                message: "some error occurred",
+            });
+        } else {
+            res.status(200).json({
+                result: result[0],
+            });
+        }
+    })
+})
 module.exports = router

@@ -132,8 +132,9 @@ $(() => {
         }
     })
 })
+var User=JSON.parse(localStorage.getItem('userDetails'));
 function reject(homeid){    
-   let userid="60cdc02cd333591b4c72eba6";
+   let userid=User.userId
     alert(homeid);
     $.ajax({
         url: "/api/admin/rejecthouse/" + userid,
