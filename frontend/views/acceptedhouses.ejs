@@ -39,6 +39,8 @@
         function join(e,houseid)
         {
             house_id=houseid;
+            uid=JSON.parse(localStorage.getItem(userDetails));
+            uid=uid.userId;
             axios.post("/order").then((info)=>
             {
                 console.log(info);
@@ -48,7 +50,7 @@
             "description": "Test Transaction",
             "image": "https://example.com/your_logo",
             "order_id": info.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            "callback_url": "/is-order-complete/"+house_id,
+            "callback_url": "/is-order-complete/"+house_id+"/"+uid,
             "theme": {
                 "color": "#3399cc"
             }
